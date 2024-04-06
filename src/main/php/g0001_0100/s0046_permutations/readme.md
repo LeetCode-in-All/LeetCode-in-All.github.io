@@ -1,0 +1,68 @@
+[![](https://img.shields.io/github/stars/javadev/LeetCode-in-All?label=Stars&style=flat-square)](https://github.com/javadev/LeetCode-in-All)
+[![](https://img.shields.io/github/forks/javadev/LeetCode-in-All?label=Fork%20me%20on%20GitHub%20&style=flat-square)](https://github.com/javadev/LeetCode-in-All/fork)
+
+## 46\. Permutations
+
+Medium
+
+Given an array `nums` of distinct integers, return _all the possible permutations_. You can return the answer in **any order**.
+
+**Example 1:**
+
+**Input:** nums = [1,2,3]
+
+**Output:** [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] 
+
+**Example 2:**
+
+**Input:** nums = [0,1]
+
+**Output:** [[0,1],[1,0]] 
+
+**Example 3:**
+
+**Input:** nums = [1]
+
+**Output:** [[1]] 
+
+**Constraints:**
+
+*   `1 <= nums.length <= 6`
+*   `-10 <= nums[i] <= 10`
+*   All the integers of `nums` are **unique**.
+
+## Solution
+
+```php
+class Solution {
+    /**
+     * @param Integer[] $nums
+     * @return Integer[][]
+     */
+    public function permute($nums) {
+        if ($nums == null || count($nums) == 0) {
+            return array();
+        }
+        $finalResult = array();
+        $this->permuteRecur($nums, $finalResult, array(), array_fill(0, count($nums), false));
+        return $finalResult;
+    }
+
+    private function permuteRecur($nums, &$finalResult, $currResult, $used) {
+        if (count($currResult) == count($nums)) {
+            array_push($finalResult, $currResult);
+            return;
+        }
+        for ($i = 0; $i < count($nums); $i++) {
+            if ($used[$i]) {
+                continue;
+            }
+            array_push($currResult, $nums[$i]);
+            $used[$i] = true;
+            $this->permuteRecur($nums, $finalResult, $currResult, $used);
+            $used[$i] = false;
+            array_pop($currResult);
+        }
+    }
+}
+```

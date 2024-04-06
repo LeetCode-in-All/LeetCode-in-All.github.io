@@ -1,0 +1,67 @@
+[![](https://img.shields.io/github/stars/javadev/LeetCode-in-All?label=Stars&style=flat-square)](https://github.com/javadev/LeetCode-in-All)
+[![](https://img.shields.io/github/forks/javadev/LeetCode-in-All?label=Fork%20me%20on%20GitHub%20&style=flat-square)](https://github.com/javadev/LeetCode-in-All/fork)
+
+## 46\. Permutations
+
+Medium
+
+Given an array `nums` of distinct integers, return _all the possible permutations_. You can return the answer in **any order**.
+
+**Example 1:**
+
+**Input:** nums = [1,2,3]
+
+**Output:** [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]] 
+
+**Example 2:**
+
+**Input:** nums = [0,1]
+
+**Output:** [[0,1],[1,0]] 
+
+**Example 3:**
+
+**Input:** nums = [1]
+
+**Output:** [[1]] 
+
+**Constraints:**
+
+*   `1 <= nums.length <= 6`
+*   `-10 <= nums[i] <= 10`
+*   All the integers of `nums` are **unique**.
+
+## Solution
+
+```scala
+object Solution {
+    def permute(nums: Array[Int]): List[List[Int]] = {
+        if (nums == null || nums.isEmpty) {
+            return List()
+        }
+
+        val finalResult = new scala.collection.mutable.ListBuffer[List[Int]]()
+        val used = Array.fill[Boolean](nums.length)(false)
+
+        def permuteRecur(currResult: scala.collection.mutable.ListBuffer[Int]): Unit = {
+            if (currResult.size == nums.length) {
+                finalResult += currResult.toList
+                return
+            }
+
+            for (i <- nums.indices) {
+                if (!used(i)) {
+                    currResult += nums(i)
+                    used(i) = true
+                    permuteRecur(currResult)
+                    used(i) = false
+                    currResult.remove(currResult.size - 1)
+                }
+            }
+        }
+
+        permuteRecur(new scala.collection.mutable.ListBuffer[Int]())
+        finalResult.toList
+    }
+}
+```
