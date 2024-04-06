@@ -46,24 +46,41 @@ You must write an algorithm with `O(log n)` runtime complexity.
 *   `nums` contains **distinct** values sorted in **ascending** order.
 *   <code>-10<sup>4</sup> <= target <= 10<sup>4</sup></code>
 
-## Solution
+To solve the "Search Insert Position" problem in Java with a `Solution` class, we can follow these steps:
+
+1. Define a `Solution` class.
+2. Define a method named `searchInsert` that takes an integer array `nums` and an integer `target` as input and returns an integer representing the index where `target` would be inserted in order.
+3. Implement binary search to find the insertion position of `target`.
+4. Set the left pointer `left` to 0 and the right pointer `right` to the length of `nums` minus 1.
+5. While `left` is less than or equal to `right`:
+   - Calculate the middle index `mid` as `(left + right) / 2`.
+   - If `nums[mid]` is equal to `target`, return `mid`.
+   - If `target` is less than `nums[mid]`, update `right = mid - 1`.
+   - If `target` is greater than `nums[mid]`, update `left = mid + 1`.
+6. If `target` is not found in `nums`, return the value of `left`, which represents the index where `target` would be inserted in order.
+
+Here's the implementation:
 
 ```java
 public class Solution {
     public int searchInsert(int[] nums, int target) {
-        int lo = 0;
-        int hi = nums.length - 1;
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (target == nums[mid]) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
                 return mid;
             } else if (target < nums[mid]) {
-                hi = mid - 1;
-            } else if (target > nums[mid]) {
-                lo = mid + 1;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
-        return lo;
+
+        return left;
     }
 }
 ```
+
+This implementation provides a solution to the "Search Insert Position" problem in Java. It returns the index where `target` would be inserted in `nums` using binary search, with a time complexity of O(log n).

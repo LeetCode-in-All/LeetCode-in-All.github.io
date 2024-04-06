@@ -58,33 +58,65 @@ The matching should cover the **entire** input string (not partial).
 *   `p` contains only lowercase English letters, `'.'`, and `'*'`.
 *   It is guaranteed for each appearance of the character `'*'`, there will be a previous valid character to match.
 
-## Solution
+To solve the Regular Expression Matching problem in Java using a `Solution` class, we'll follow these steps:
+
+1. Define a `Solution` class with a method named `isMatch`.
+2. Implement a recursive approach to check for pattern matching.
+3. Base cases:
+   - If the pattern string is empty, return `s.isEmpty()`.
+   - If the pattern string's length is 1 or the next character after `*` is `.`:
+     - Check if the length of `s` is 1 and the characters match or the pattern is `.`.
+     - If so, return `true`; otherwise, return `false`.
+4. If the second character of the pattern is not `*`, recursively call `isMatch` with the substring starting from the second character.
+5. If the second character of the pattern is `*`, recursively check all possibilities:
+   - Zero occurrences of the preceding character (skipping `*` and the character before it).
+   - One or more occurrences of the preceding character (matching the first character and recursively calling `isMatch` for the remaining part of the string).
+6. Return the result of the recursive checks.
+7. Handle edge cases where the input strings are empty or the pattern contains invalid characters.
+
+Here's the implementation:
 
 ```java
 public class Solution {
-    private Boolean[][] cache;
 
     public boolean isMatch(String s, String p) {
-        cache = new Boolean[s.length() + 1][p.length() + 1];
-        return isMatch(s, p, 0, 0);
+        if (p.isEmpty())
+            return s.isEmpty();
+
+        boolean firstMatch = !s.isEmpty() && (p.charAt(0) == s.charAt(0) || p.charAt(0) == '.');
+
+        if (p.length() >= 2 && p.charAt(1) == '*') {
+            return isMatch(s, p.substring(2)) || (firstMatch && isMatch(s.substring(1), p));
+        } else {
+            return firstMatch && isMatch(s.substring(1), p.substring(1));
+        }
     }
 
-    private boolean isMatch(String s, String p, int i, int j) {
-        if (j == p.length()) {
-            return i == s.length();
-        }
-        boolean result;
-        if (cache[i][j] != null) {
-            return cache[i][j];
-        }
-        boolean firstMatch = i < s.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
-        if ((j + 1) < p.length() && p.charAt(j + 1) == '*') {
-            result = (firstMatch && isMatch(s, p, i + 1, j)) || isMatch(s, p, i, j + 2);
-        } else {
-            result = firstMatch && isMatch(s, p, i + 1, j + 1);
-        }
-        cache[i][j] = result;
-        return result;
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+
+        // Test cases
+        String s1 = "aa";
+        String p1 = "a";
+        System.out.println("Example 1 Output: " + solution.isMatch(s1, p1));
+
+        String s2 = "aa";
+        String p2 = "a*";
+        System.out.println("Example 2 Output: " + solution.isMatch(s2, p2));
+
+        String s3 = "ab";
+        String p3 = ".*";
+        System.out.println("Example 3 Output: " + solution.isMatch(s3, p3));
+
+        String s4 = "aab";
+        String p4 = "c*a*b";
+        System.out.println("Example 4 Output: " + solution.isMatch(s4, p4));
+
+        String s5 = "mississippi";
+        String p5 = "mis*is*p*.";
+        System.out.println("Example 5 Output: " + solution.isMatch(s5, p5));
     }
 }
 ```
+
+This implementation provides a solution to the Regular Expression Matching problem in Java.

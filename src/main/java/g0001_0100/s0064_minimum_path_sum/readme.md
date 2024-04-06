@@ -32,33 +32,43 @@ Given a `m x n` `grid` filled with non-negative numbers, find a path from top le
 *   `1 <= m, n <= 200`
 *   `0 <= grid[i][j] <= 100`
 
-## Solution
+To solve the "Minimum Path Sum" problem in Java with the Solution class, follow these steps:
+
+1. Define a method `minPathSum` in the `Solution` class that takes a 2D grid of non-negative numbers as input and returns the minimum sum of all numbers along the path from the top-left corner to the bottom-right corner of the grid.
+2. Initialize a 2D array `dp` of size `m x n`, where `dp[i][j]` represents the minimum sum of the path from the top-left corner to position `(i, j)` in the grid.
+3. Initialize `dp[0][0]` to the value of the top-left cell in the grid.
+4. Initialize the first row and first column of `dp` based on the grid values and the previous cells in the same row or column.
+5. Iterate over each position `(i, j)` in the grid, starting from the second row and second column:
+   - Update `dp[i][j]` by adding the current grid value at `(i, j)` to the minimum of the values of the previous cells `(i-1, j)` and `(i, j-1)` in `dp`.
+6. Return `dp[m-1][n-1]`, which represents the minimum path sum from the top-left corner to the bottom-right corner of the grid.
+
+Here's the implementation of the `minPathSum` method in Java:
 
 ```java
-public class Solution {
+class Solution {
     public int minPathSum(int[][] grid) {
-        if (grid.length == 1 && grid[0].length == 1) {
-            return grid[0][0];
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+        
+        dp[0][0] = grid[0][0];
+        // Initialize first row
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = dp[0][j-1] + grid[0][j];
         }
-        int[][] dm = new int[grid.length][grid[0].length];
-        int s = 0;
-        for (int r = grid.length - 1; r >= 0; r--) {
-            dm[r][grid[0].length - 1] = grid[r][grid[0].length - 1] + s;
-            s += grid[r][grid[0].length - 1];
+        // Initialize first column
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = dp[i-1][0] + grid[i][0];
         }
-        s = 0;
-        for (int c = grid[0].length - 1; c >= 0; c--) {
-            dm[grid.length - 1][c] = grid[grid.length - 1][c] + s;
-            s += grid[grid.length - 1][c];
+        // Fill in the rest of the dp array
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = grid[i][j] + Math.min(dp[i-1][j], dp[i][j-1]);
+            }
         }
-        return recur(grid, dm, 0, 0);
-    }
-
-    private int recur(int[][] grid, int[][] dm, int r, int c) {
-        if (dm[r][c] == 0 && r != grid.length - 1 && c != grid[0].length - 1) {
-            dm[r][c] = grid[r][c] + Math.min(recur(grid, dm, r + 1, c), recur(grid, dm, r, c + 1));
-        }
-        return dm[r][c];
+        return dp[m-1][n-1];
     }
 }
 ```
+
+This implementation efficiently calculates the minimum path sum using dynamic programming, with a time complexity of O(m * n) and a space complexity of O(m * n).

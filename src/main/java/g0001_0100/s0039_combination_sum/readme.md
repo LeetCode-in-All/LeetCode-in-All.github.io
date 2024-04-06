@@ -54,35 +54,53 @@ It is **guaranteed** that the number of unique combinations that sum up to `targ
 *   All elements of `candidates` are **distinct**.
 *   `1 <= target <= 500`
 
-## Solution
+To solve the "Combination Sum" problem in Java with a `Solution` class, we can follow these steps:
+
+1. Define a `Solution` class.
+2. Define a method named `combinationSum` that takes an array of integers `candidates` and an integer `target` as input and returns a list of lists containing all unique combinations of `candidates` where the chosen numbers sum to `target`.
+3. Implement backtracking to explore all possible combinations of candidates.
+4. Sort the `candidates` array to ensure that duplicates are grouped together.
+5. Create a recursive helper method named `backtrack` that takes parameters:
+   - A list to store the current combination.
+   - An integer representing the starting index in the `candidates` array.
+   - The current sum of the combination.
+6. In the `backtrack` method:
+   - If the current sum equals the target, add the current combination to the result list.
+   - Iterate over the candidates starting from the current index.
+   - Add the current candidate to the combination.
+   - Recursively call the `backtrack` method with the updated combination, index, and sum.
+   - Remove the last added candidate from the combination to backtrack.
+7. Call the `backtrack` method with an empty combination list, starting index 0, and sum 0.
+8. Return the result list containing all unique combinations.
+
+Here's the implementation:
 
 ```java
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Solution {
-    public List<List<Integer>> combinationSum(int[] coins, int amount) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> subList = new ArrayList<>();
-        combinationSumRec(coins.length, coins, amount, subList, ans);
-        return ans;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates); // Sort the candidates to ensure duplicates are grouped together
+        backtrack(result, new ArrayList<>(), candidates, target, 0);
+        return result;
     }
 
-    private void combinationSumRec(
-            int n, int[] coins, int amount, List<Integer> subList, List<List<Integer>> ans) {
-        if (amount == 0 || n == 0) {
-            if (amount == 0) {
-                List<Integer> base = new ArrayList<>(subList);
-                ans.add(base);
-            }
+    private void backtrack(List<List<Integer>> result, List<Integer> combination, int[] candidates, int target, int start) {
+        if (target == 0) {
+            result.add(new ArrayList<>(combination));
             return;
         }
-        if (amount - coins[n - 1] >= 0) {
-            subList.add(coins[n - 1]);
-            combinationSumRec(n, coins, amount - coins[n - 1], subList, ans);
-            subList.remove(subList.size() - 1);
+
+        for (int i = start; i < candidates.length && candidates[i] <= target; i++) {
+            combination.add(candidates[i]);
+            backtrack(result, combination, candidates, target - candidates[i], i); // Use the same candidate again
+            combination.remove(combination.size() - 1); // Backtrack by removing the last candidate
         }
-        combinationSumRec(n - 1, coins, amount, subList, ans);
     }
 }
 ```
+
+This implementation provides a solution to the "Combination Sum" problem in Java. It explores all possible combinations of candidates using backtracking and returns the unique combinations whose sum equals the target.
