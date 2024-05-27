@@ -36,32 +36,28 @@ A **subarray** is a **contiguous** part of an array.
 
 **Follow up:** If you have figured out the `O(n)` solution, try coding another solution using the **divide and conquer** approach, which is more subtle.
 
-To solve the "Maximum Subarray" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `maxSubArray` in the `Solution` class that takes an integer array `nums` as input and returns an integer representing the largest sum of a contiguous subarray.
-2. Initialize two variables `maxSum` and `currentSum` to store the maximum sum found so far and the sum of the current subarray being considered, respectively. Set both to the value of the first element in `nums`.
-3. Iterate through the array `nums` from index `1` to `nums.length - 1`:
-   - Update `currentSum` as the maximum of the current element and the sum of the current element plus `currentSum`.
-   - Update `maxSum` as the maximum of `maxSum` and `currentSum`.
-4. After iterating through all elements in `nums`, return `maxSum`.
 
-Here's the implementation of the `maxSubArray` method in Java:
+## Solution
 
-```java
+```cpp
+#include <vector>
+#include <algorithm>
+#include <climits>
+
 class Solution {
-    public int maxSubArray(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
+public:
+    int maxSubArray(std::vector<int>& nums) {
+        int maxi = INT_MIN;
+        int sum = 0;
+        for (const int& num : nums) {
+            sum += num;
+            maxi = std::max(sum, maxi);
+            if (sum < 0) {
+                sum = 0;
+            }
         }
-        int maxSum = nums[0];
-        int currentSum = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            currentSum = Math.max(nums[i], currentSum + nums[i]);
-            maxSum = Math.max(maxSum, currentSum);
-        }
-        return maxSum;
+        return maxi;
     }
-}
+};
 ```
-
-This implementation efficiently finds the largest sum of a contiguous subarray in the given array `nums` using the Kadane's algorithm, which has a time complexity of O(n).

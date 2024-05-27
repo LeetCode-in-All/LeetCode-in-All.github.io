@@ -44,48 +44,34 @@ You have to rotate the image [**in-place**](https://en.wikipedia.org/wiki/In-pla
 *   `1 <= n <= 20`
 *   `-1000 <= matrix[i][j] <= 1000`
 
-To solve the "Rotate Image" problem in Java with a `Solution` class, we can follow these steps:
 
-1. Define a `Solution` class.
-2. Define a method named `rotate` that takes a 2D array `matrix` representing an image as input and rotates the image by 90 degrees clockwise.
-3. Determine the number of layers in the matrix, which is equal to half of the matrix's size.
-4. Iterate through each layer from outer to inner layers.
-5. For each layer:
-   - Iterate through each element in the current layer.
-   - Swap the elements of the current layer in a clockwise manner.
-6. Return the rotated matrix.
 
-Here's the implementation:
+## Solution
 
-```java
-public class Solution {
-    public void rotate(int[][] matrix) {
-        int n = matrix.length;
-        int layers = n / 2;
+```cpp
+#include <vector>
 
-        for (int layer = 0; layer < layers; layer++) {
-            int first = layer;
-            int last = n - 1 - layer;
-            
-            for (int i = first; i < last; i++) {
-                int offset = i - first;
-                int top = matrix[first][i];
-                
-                // Move left to top
-                matrix[first][i] = matrix[last - offset][first];
-                
-                // Move bottom to left
-                matrix[last - offset][first] = matrix[last][last - offset];
-                
-                // Move right to bottom
-                matrix[last][last - offset] = matrix[i][last];
-                
-                // Move top to right
-                matrix[i][last] = top;
+class Solution {
+public:
+    void rotate(std::vector<std::vector<int>>& matrix) {
+        int n = matrix.size();
+        for (int i = 0; i < n / 2; ++i) {
+            for (int j = i; j < n - i - 1; ++j) {
+                std::vector<std::vector<int>> pos = {
+                    {i, j}, 
+                    {j, n - 1 - i}, 
+                    {n - 1 - i, n - 1 - j}, 
+                    {n - 1 - j, i}
+                };
+                int t = matrix[pos[0][0]][pos[0][1]];
+                for (int k = 1; k < pos.size(); ++k) {
+                    int temp = matrix[pos[k][0]][pos[k][1]];
+                    matrix[pos[k][0]][pos[k][1]] = t;
+                    t = temp;
+                }
+                matrix[pos[0][0]][pos[0][1]] = t;
             }
         }
     }
-}
+};
 ```
-
-This implementation provides a solution to the "Rotate Image" problem in Java. It rotates the given 2D matrix representing an image by 90 degrees clockwise in-place.
