@@ -30,46 +30,78 @@ Given an array of integers `heights` representing the histogram's bar height whe
 *   <code>1 <= heights.length <= 10<sup>5</sup></code>
 *   <code>0 <= heights[i] <= 10<sup>4</sup></code>
 
-To solve the "Largest Rectangle in Histogram" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `largestRectangleArea` in the `Solution` class that takes an array of integers `heights` as input and returns the area of the largest rectangle in the histogram.
-2. Implement a stack-based algorithm to find the largest rectangle:
-   - Initialize a stack to store indices of bars in the histogram.
-   - Iterate through each bar in the histogram:
-     - If the stack is empty or the current bar's height is greater than or equal to the height of the bar at the top of the stack, push the current bar's index onto the stack.
-     - If the current bar's height is less than the height of the bar at the top of the stack, keep popping bars from the stack until either the stack is empty or the height of the bar at the top of the stack is less than the height of the current bar.
-       - Calculate the area of the rectangle formed by the popped bar using its height and width (the difference between the current index and the index of the previous bar in the stack or -1 if the stack is empty).
-       - Update the maximum area if the calculated area is greater.
-   - After iterating through all bars, pop the remaining bars from the stack and calculate the area of rectangles formed by them using the same method as above.
-3. Return the maximum area calculated.
 
-Here's the implementation of the `largestRectangleArea` method in Java:
+## Solution
 
-```java
-import java.util.Stack;
+```cpp
+#include <vector>
+#include <algorithm>
+#include <climits>
 
 class Solution {
-    public int largestRectangleArea(int[] heights) {
-        Stack<Integer> stack = new Stack<>();
-        int maxArea = 0;
-        int i = 0;
-        while (i < heights.length) {
-            if (stack.isEmpty() || heights[i] >= heights[stack.peek()]) {
-                stack.push(i++);
-            } else {
-                int top = stack.pop();
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, heights[top] * width);
+public:
+    int largestRectangleArea(std::vector<int>& heights) {
+        return largestArea(heights, 0, heights.size());
+    }
+
+private:
+    int largestArea(const std::vector<int>& a, int start, int limit) {
+        if (a.empty()) {
+            return 0;
+        }
+        if (start == limit) {
+            return 0;
+        }
+        if (limit - start == 1) {
+            return a[start];
+        }
+        if (limit - start == 2) {
+            int maxOfTwoBars = std::max(a[start], a[start + 1]);
+            int areaFromTwo = std::min(a[start], a[start + 1]) * 2;
+            return std::max(maxOfTwoBars, areaFromTwo);
+        }
+        if (checkIfSorted(a, start, limit)) {
+            int maxWhenSorted = 0;
+            for (int i = start; i < limit; i++) {
+                if (a[i] * (limit - i) > maxWhenSorted) {
+                    maxWhenSorted = a[i] * (limit - i);
+                }
+            }
+            return maxWhenSorted;
+        } else {
+            int minInd = findMinInArray(a, start, limit);
+            return maxOfThreeNums(
+                largestArea(a, start, minInd),
+                a[minInd] * (limit - start),
+                largestArea(a, minInd + 1, limit)
+            );
+        }
+    }
+
+    int findMinInArray(const std::vector<int>& a, int start, int limit) {
+        int min = INT_MAX;
+        int minIndex = -1;
+        for (int index = start; index < limit; index++) {
+            if (a[index] < min) {
+                min = a[index];
+                minIndex = index;
             }
         }
-        while (!stack.isEmpty()) {
-            int top = stack.pop();
-            int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-            maxArea = Math.max(maxArea, heights[top] * width);
-        }
-        return maxArea;
+        return minIndex;
     }
-}
-```
 
-This implementation uses a stack-based approach to find the largest rectangle in the histogram, with a time complexity of O(N), where N is the number of bars in the histogram.
+    bool checkIfSorted(const std::vector<int>& a, int start, int limit) {
+        for (int i = start + 1; i < limit; i++) {
+            if (a[i] < a[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int maxOfThreeNums(int a, int b, int c) {
+        return std::max(std::max(a, b), c);
+    }
+};
+```

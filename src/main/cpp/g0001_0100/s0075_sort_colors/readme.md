@@ -43,45 +43,37 @@ You must solve this problem without using the library's sort function.
 
 **Follow up:** Could you come up with a one-pass algorithm using only constant extra space?
 
-To solve the "Sort Colors" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `sortColors` in the `Solution` class that takes an array of integers `nums` as input and sorts it in-place according to the colors red, white, and blue.
-2. Initialize three pointers: `low`, `mid`, and `high`. `low` points to the beginning of the array, `mid` points to the current element being processed, and `high` points to the end of the array.
-3. Loop while `mid` is less than or equal to `high`:
-   - If `nums[mid]` is 0, swap `nums[low]` with `nums[mid]`, increment `low` and `mid`.
-   - If `nums[mid]` is 1, increment `mid`.
-   - If `nums[mid]` is 2, swap `nums[mid]` with `nums[high]`, decrement `high`.
-4. After the loop, the array will be sorted in-place according to the colors red, white, and blue.
 
-Here's the implementation of the `sortColors` method in Java:
+## Solution
 
-```java
+```cpp
+#include <vector>
+
 class Solution {
-    public void sortColors(int[] nums) {
-        int low = 0;
-        int mid = 0;
-        int high = nums.length - 1;
-        
-        while (mid <= high) {
-            if (nums[mid] == 0) {
-                swap(nums, low, mid);
-                low++;
-                mid++;
-            } else if (nums[mid] == 1) {
-                mid++;
-            } else {
-                swap(nums, mid, high);
-                high--;
+public:
+    void sortColors(std::vector<int>& nums) {
+        int zeroes = 0;
+        int ones = 0;
+
+        // Count the number of zeros and place them in the front
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {
+                nums[zeroes++] = 0;
+            } else if (nums[i] == 1) {
+                ones++;
             }
         }
-    }
-    
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-}
-```
 
-This implementation sorts the array in-place using a one-pass algorithm with constant extra space. It iterates through the array and swaps elements as needed to group them according to their colors. The time complexity of this solution is O(n), where n is the length of the array.
+        // Place ones after the zeros
+        for (int j = zeroes; j < zeroes + ones; j++) {
+            nums[j] = 1;
+        }
+
+        // Place twos after the ones
+        for (int k = zeroes + ones; k < nums.size(); k++) {
+            nums[k] = 2;
+        }
+    }
+};
+```

@@ -44,73 +44,46 @@ A **substring** is a contiguous sequence of characters within the string.
 
 **Follow up:** Could you find an algorithm that runs in `O(m + n)` time?
 
-To solve the "Minimum Window Substring" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `minWindow` in the `Solution` class that takes two strings `s` and `t` as input and returns the minimum window substring of `s` containing all characters from `t`.
-2. Create two frequency maps: `tFreqMap` to store the frequency of characters in string `t`, and `sFreqMap` to store the frequency of characters in the current window of string `s`.
-3. Initialize two pointers `left` and `right` to track the window boundaries. Initialize a variable `minLength` to store the minimum window length found so far.
-4. Iterate over string `s` using the `right` pointer until the end of the string:
-   - Update the frequency map `sFreqMap` for the character at index `right`.
-   - Check if the current window contains all characters from `t`. If it does, move the `left` pointer to minimize the window while maintaining the condition.
-   - Update the `minLength` if the current window length is smaller.
-   - Move the `right` pointer to expand the window.
-5. Return the minimum window substring found, or an empty string if no such substring exists.
 
-Here's the implementation of the `minWindow` method in Java:
+## Solution
 
-```java
-import java.util.HashMap;
-import java.util.Map;
+```cpp
+#include <string>
+#include <vector>
+#include <climits>
 
 class Solution {
-    public String minWindow(String s, String t) {
-        Map<Character, Integer> tFreqMap = new HashMap<>();
-        Map<Character, Integer> sFreqMap = new HashMap<>();
-        
-        // Initialize tFreqMap with character frequencies from string t
-        for (char ch : t.toCharArray()) {
-            tFreqMap.put(ch, tFreqMap.getOrDefault(ch, 0) + 1);
+public:
+    std::string minWindow(const std::string& s, const std::string& t) {
+        std::vector<int> map(128, 0);
+        for (char c : t) {
+            map[c]++;
         }
         
-        int left = 0;
-        int right = 0;
-        int minLength = Integer.MAX_VALUE;
-        int minStart = 0;
-        
-        while (right < s.length()) {
-            char rightChar = s.charAt(right);
-            sFreqMap.put(rightChar, sFreqMap.getOrDefault(rightChar, 0) + 1);
-            right++;
-            
-            // Check if the current window contains all characters from t
-            while (containsAllChars(sFreqMap, tFreqMap)) {
-                // Update the minimum window length
-                if (right - left < minLength) {
-                    minLength = right - left;
-                    minStart = left;
-                }
-                
-                char leftChar = s.charAt(left);
-                sFreqMap.put(leftChar, sFreqMap.get(leftChar) - 1);
-                left++;
-            }
-        }
-        
-        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLength);
-    }
-    
-    // Helper method to check if sFreqMap contains all characters from tFreqMap
-    private boolean containsAllChars(Map<Character, Integer> sFreqMap, Map<Character, Integer> tFreqMap) {
-        for (Map.Entry<Character, Integer> entry : tFreqMap.entrySet()) {
-            char ch = entry.getKey();
-            int count = entry.getValue();
-            if (sFreqMap.getOrDefault(ch, 0) < count) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-```
+        int count = t.size();
+        int begin = 0;
+        int end = 0;
+        int d = INT_MAX;
+        int head = 0;
 
-This implementation finds the minimum window substring in `O(m + n)` time complexity, where `m` is the length of string `s` and `n` is the length of string `t`. It uses two frequency maps to keep track of character frequencies and adjusts the window boundaries to find the minimum window containing all characters from `t`.
+        while (end < s.size()) {
+            if (map[s[end++]]-- > 0) {
+                count--;
+            }
+            
+            while (count == 0) {
+                if (end - begin < d) {
+                    d = end - begin;
+                    head = begin;
+                }
+                if (map[s[begin++]]++ == 0) {
+                    count++;
+                }
+            }
+        }
+
+        return d == INT_MAX ? "" : s.substr(head, d);
+    }
+};
+```

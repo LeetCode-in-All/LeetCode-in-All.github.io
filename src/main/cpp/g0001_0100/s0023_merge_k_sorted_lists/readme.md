@@ -38,99 +38,80 @@ _Merge all the linked-lists into one sorted linked-list and return it._
 *   `lists[i]` is sorted in **ascending order**.
 *   The sum of `lists[i].length` won't exceed `10^4`.
 
-To solve the "Merge k Sorted Lists" problem in Java with a `Solution` class, we can use a priority queue (min-heap) to efficiently merge the lists. Here are the steps:
 
-1. Define a `Solution` class.
-2. Define a method named `mergeKLists` that takes an array of linked lists `lists` as input and returns a single sorted linked list.
-3. Create a priority queue of ListNode objects. We will use this priority queue to store the heads of each linked list.
-4. Iterate through each linked list in the input array `lists` and add the head node of each list to the priority queue.
-5. Create a dummy ListNode object to serve as the head of the merged sorted linked list.
-6. Initialize a ListNode object named `current` to point to the dummy node.
-7. While the priority queue is not empty:
-   - Remove the ListNode with the smallest value from the priority queue.
-   - Add this node to the merged linked list by setting the `next` pointer of the `current` node to this node.
-   - Move the `current` pointer to the next node in the merged linked list.
-   - If the removed node has a `next` pointer, add the next node from the same list to the priority queue.
-8. Return the `next` pointer of the dummy node, which points to the head of the merged sorted linked list.
 
-Here's the implementation:
+## Solution
 
-```java
-import java.util.PriorityQueue;
+```cpp
+#include <vector>
+using namespace std;
 
-public class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
-        
-        // Add the heads of all lists to the priority queue
-        for (ListNode node : lists) {
-            if (node != null) {
-                minHeap.offer(node);
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.empty()) {
+            return nullptr;
+        }
+        return mergeKLists(lists, 0, lists.size());
+    }
+
+private:
+    ListNode* mergeKLists(vector<ListNode*>& lists, int leftIndex, int rightIndex) {
+        if (rightIndex > leftIndex + 1) {
+            int mid = (leftIndex + rightIndex) / 2;
+            ListNode* left = mergeKLists(lists, leftIndex, mid);
+            ListNode* right = mergeKLists(lists, mid, rightIndex);
+            return mergeTwoLists(left, right);
+        } else {
+            return lists[leftIndex];
+        }
+    }
+
+    ListNode* mergeTwoLists(ListNode* left, ListNode* right) {
+        if (left == nullptr) {
+            return right;
+        }
+        if (right == nullptr) {
+            return left;
+        }
+        ListNode* res;
+        if (left->val <= right->val) {
+            res = left;
+            left = left->next;
+        } else {
+            res = right;
+            right = right->next;
+        }
+        ListNode* node = res;
+        while (left != nullptr || right != nullptr) {
+            if (left == nullptr) {
+                node->next = right;
+                right = right->next;
+            } else if (right == nullptr) {
+                node->next = left;
+                left = left->next;
+            } else {
+                if (left->val <= right->val) {
+                    node->next = left;
+                    left = left->next;
+                } else {
+                    node->next = right;
+                    right = right->next;
+                }
             }
+            node = node->next;
         }
-        
-        // Create a dummy node to serve as the head of the merged list
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        
-        // Merge the lists
-        while (!minHeap.isEmpty()) {
-            ListNode minNode = minHeap.poll();
-            current.next = minNode;
-            current = current.next;
-            
-            if (minNode.next != null) {
-                minHeap.offer(minNode.next);
-            }
-        }
-        
-        return dummy.next;
+        return res;
     }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-
-        // Test case
-        ListNode[] lists = new ListNode[] {
-            ListNode.createList(new int[] {1, 4, 5}),
-            ListNode.createList(new int[] {1, 3, 4}),
-            ListNode.createList(new int[] {2, 6})
-        };
-        System.out.println("Merged list:");
-        ListNode.printList(solution.mergeKLists(lists));
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    static ListNode createList(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return null;
-        }
-
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        for (int num : arr) {
-            current.next = new ListNode(num);
-            current = current.next;
-        }
-        return dummy.next;
-    }
-
-    static void printList(ListNode head) {
-        while (head != null) {
-            System.out.print(head.val + " ");
-            head = head.next;
-        }
-        System.out.println();
-    }
-}
+};
 ```
-
-This implementation provides a solution to the "Merge k Sorted Lists" problem in Java using a priority queue.

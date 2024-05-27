@@ -50,44 +50,35 @@ Given the `root` of a binary tree, return _the inorder traversal of its nodes' v
 
 **Follow up:** Recursive solution is trivial, could you do it iteratively?
 
-To solve the "Binary Tree Inorder Traversal" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `inorderTraversal` in the `Solution` class that takes the root of a binary tree as input and returns the inorder traversal of its nodes' values.
-2. Implement an iterative algorithm to perform inorder traversal:
-   - Initialize an empty list to store the inorder traversal result.
-   - Initialize a stack to track the nodes during traversal.
-   - Start with the root node and push it onto the stack.
-   - While the stack is not empty:
-     - Traverse down the left subtree by pushing all left child nodes onto the stack.
-     - Pop the top node from the stack and add its value to the traversal result list.
-     - Move to the right subtree of the popped node and repeat the process.
-   - Return the traversal result list.
-3. Return the inorder traversal result list.
 
-Here's the implementation of the `inorderTraversal` method in Java:
+## Solution
 
-```java
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
+```cpp
+/*
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> inorder = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                stack.push(curr);
-                curr = curr.left;
-            }
-            curr = stack.pop();
-            inorder.add(curr.val);
-            curr = curr.right;
-        }
-        return inorder;
+public:
+    vector<int> a;
+    void inord(TreeNode* root)
+    {
+        if(!root) return;
+        if(root->left) inord(root->left);
+        a.push_back(root->val);
+        if(root->right) inord(root->right);
     }
-}
+    vector<int> inorderTraversal(TreeNode* root) {
+        inord(root);
+        return a;
+    }
+};
 ```
-
-This implementation performs an iterative inorder traversal of the binary tree using a stack, with a time complexity of O(N), where N is the number of nodes in the tree.

@@ -34,51 +34,39 @@ You have the following three operations permitted on a word:
 *   `0 <= word1.length, word2.length <= 500`
 *   `word1` and `word2` consist of lowercase English letters.
 
-To solve the "Edit Distance" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `minDistance` in the `Solution` class that takes two strings `word1` and `word2` as input and returns the minimum number of operations required to convert `word1` to `word2`.
-2. Initialize a 2D array `dp` of size `(m+1) x (n+1)`, where `m` is the length of `word1` and `n` is the length of `word2`.
-3. Set `dp[i][0] = i` for all `i` from `0` to `m`, as the minimum number of operations to convert a string of length `i` to an empty string is `i` deletions.
-4. Set `dp[0][j] = j` for all `j` from `0` to `n`, as the minimum number of operations to convert an empty string to a string of length `j` is `j` insertions.
-5. Iterate over the characters of `word1` and `word2`:
-   - If `word1.charAt(i-1)` is equal to `word2.charAt(j-1)`, set `dp[i][j] = dp[i-1][j-1]`, as no operation is required to match these characters.
-   - Otherwise, set `dp[i][j]` to the minimum of the following three options:
-     - `dp[i-1][j] + 1`: Delete the character at position `i` from `word1`.
-     - `dp[i][j-1] + 1`: Insert the character at position `j` from `word2` into `word1`.
-     - `dp[i-1][j-1] + 1`: Replace the character at position `i` in `word1` with the character at position `j` in `word2`.
-6. Return `dp[m][n]`, which represents the minimum number of operations required to convert `word1` to `word2`.
 
-Here's the implementation of the `minDistance` method in Java:
+## Solution
 
-```java
+```cpp
+#include <vector>
+#include <string>
+#include <algorithm>
+
 class Solution {
-    public int minDistance(String word1, String word2) {
-        int m = word1.length();
-        int n = word2.length();
-        
-        int[][] dp = new int[m + 1][n + 1];
-        
-        for (int i = 0; i <= m; i++) {
-            dp[i][0] = i;
+public:
+    int minDistance(const std::string& w1, const std::string& w2) {
+        int n1 = w1.length();
+        int n2 = w2.length();
+        if (n2 > n1) {
+            return minDistance(w2, w1);
         }
-        
-        for (int j = 0; j <= n; j++) {
-            dp[0][j] = j;
+        std::vector<int> dp(n2 + 1);
+        for (int j = 0; j <= n2; j++) {
+            dp[j] = j;
         }
-        
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    dp[i][j] = dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
-                }
+        for (int i = 1; i <= n1; i++) {
+            int pre = dp[0];
+            dp[0] = i;
+            for (int j = 1; j <= n2; j++) {
+                int tmp = dp[j];
+                dp[j] = (w1[i - 1] != w2[j - 1])
+                        ? 1 + std::min(pre, std::min(dp[j], dp[j - 1]))
+                        : pre;
+                pre = tmp;
             }
         }
-        
-        return dp[m][n];
+        return dp[n2];
     }
-}
+};
 ```
-
-This implementation efficiently calculates the minimum edit distance between two strings using dynamic programming, with a time complexity of O(m * n) and a space complexity of O(m * n), where m is the length of `word1` and n is the length of `word2`.

@@ -38,55 +38,69 @@ You must do it [in place](https://en.wikipedia.org/wiki/In-place_algorithm).
 *   A simple improvement uses `O(m + n)` space, but still not the best solution.
 *   Could you devise a constant space solution?
 
-To solve the "Set Matrix Zeroes" problem in Java with the Solution class, follow these steps:
 
-1. Define a method `setZeroes` in the `Solution` class that takes a 2D integer matrix `matrix` as input and modifies it in place to set the entire row and column to zeros if an element is zero.
-2. Initialize two boolean arrays `rowZero` and `colZero` of size `m` and `n` respectively, where `m` is the number of rows in the matrix and `n` is the number of columns. These arrays will track whether a row or column needs to be set to zero.
-3. Iterate over the matrix to mark the rows and columns that contain zeros:
-   - If `matrix[i][j]` is zero, set `rowZero[i] = true` and `colZero[j] = true`.
-4. Iterate over the matrix again and set the entire row to zeros if `rowZero[i] = true` or the entire column to zeros if `colZero[j] = true`.
-5. Return the modified matrix.
 
-Here's the implementation of the `setZeroes` method in Java:
+## Solution
 
-```java
+```cpp
+#include <vector>
+
 class Solution {
-    public void setZeroes(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        
-        boolean[] rowZero = new boolean[m];
-        boolean[] colZero = new boolean[n];
-        
-        // Mark rows and columns containing zeros
+public:
+    void setZeroes(std::vector<std::vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        bool row0 = false;
+        bool col0 = false;
+
+        // Check if 0th column needs to be marked all 0s in the future
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    rowZero[i] = true;
-                    colZero[j] = true;
-                }
+            if (matrix[i][0] == 0) {
+                col0 = true;
+                break;
             }
         }
-        
-        // Set rows to zero
-        for (int i = 0; i < m; i++) {
-            if (rowZero[i]) {
-                for (int j = 0; j < n; j++) {
-                    matrix[i][j] = 0;
-                }
-            }
-        }
-        
-        // Set columns to zero
+
+        // Check if 0th row needs to be marked all 0s in the future
         for (int j = 0; j < n; j++) {
-            if (colZero[j]) {
-                for (int i = 0; i < m; i++) {
+            if (matrix[0][j] == 0) {
+                row0 = true;
+                break;
+            }
+        }
+
+        // Store the signals in the 0th row and column
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        // Mark 0 for all cells based on signals from the 0th row and 0th column
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
+            }
+        }
+
+        // Set 0th column
+        if (col0) {
+            for (int i = 0; i < m; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+
+        // Set 0th row
+        if (row0) {
+            for (int j = 0; j < n; j++) {
+                matrix[0][j] = 0;
             }
         }
     }
-}
+};
 ```
-
-This implementation modifies the matrix in place to set entire rows and columns to zeros, with a time complexity of O(m * n) and a space complexity of O(m + n), where `m` is the number of rows and `n` is the number of columns in the matrix.
