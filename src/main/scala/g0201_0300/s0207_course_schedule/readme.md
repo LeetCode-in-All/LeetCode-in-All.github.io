@@ -38,41 +38,31 @@ Return `true` if you can finish all courses. Otherwise, return `false`.
 ## Solution
 
 ```scala
-import scala.collection.mutable.ArrayBuffer
-
 object Solution {
-    val WHITE = 0
-    val GRAY = 1
-    val BLACK = 2
-
     def canFinish(numCourses: Int, prerequisites: Array[Array[Int]]): Boolean = {
-        val adj = Array.fill(numCourses)(new ArrayBuffer[Int]())
-        prerequisites.foreach { pre =>
-            adj(pre(1)).append(pre(0))
+        import scala.collection.mutable.{Queue, ListBuffer}
+        val indegree = Array.fill(numCourses)(0)
+        val graph = Array.fill(numCourses)(new ListBuffer[Int])
+        for (data <- prerequisites) {
+            val course = data.head
+            val prerequisiteCourse = data.last
+            indegree(course) = indegree(course) + 1
+            graph(prerequisiteCourse) += course
         }
-
-        val colors = Array.fill(numCourses)(WHITE)
-        (0 until numCourses).forall { i =>
-            if (colors(i) == WHITE && adj(i).nonEmpty && hasCycle(adj, i, colors)) {
-                false
-            } else {
-                true
+        val startingCourses = indegree.zipWithIndex.filter(_._1.equals(0)).map(_._2)
+        val queue = Queue[Int](startingCourses: _*)
+        var courseTaken = 0
+        while (queue.nonEmpty) {
+            val current = queue.dequeue
+            courseTaken = courseTaken + 1
+            for (neighbor <- graph(current)) {
+                indegree(neighbor) = indegree(neighbor) - 1
+                if (indegree(neighbor).equals(0)) {
+                    queue.enqueue(neighbor)
+                }
             }
         }
-    }
-
-    private def hasCycle(adj: Array[ArrayBuffer[Int]], node: Int, colors: Array[Int]): Boolean = {
-        colors(node) = GRAY
-        adj(node).foreach { nei =>
-            if (colors(nei) == GRAY) {
-                return true
-            }
-            if (colors(nei) == WHITE && hasCycle(adj, nei, colors)) {
-                return true
-            }
-        }
-        colors(node) = BLACK
-        false
+        courseTaken == numCourses
     }
 }
 ```

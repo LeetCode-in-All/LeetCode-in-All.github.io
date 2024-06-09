@@ -40,20 +40,21 @@ import scala.annotation.tailrec
 object Solution {
     def firstMissingPositive(nums: Array[Int]): Int = {
         for (i <- nums.indices) {
-            if (nums(i) <= 0 || nums(i) > nums.length || nums(i) == i + 1) {
-                // Continue the loop
-            } else {
+            if (nums(i) > 0 && nums(i) < nums.length && nums(i) != i + 1) {
                 dfs(nums, nums(i))
             }
         }
 
-        for (i <- nums.indices) {
+        var result = nums.length + 1
+        var found = false
+        for (i <- nums.indices if !found) {
             if (nums(i) != i + 1) {
-                return i + 1
+                result = i + 1
+                found = true
             }
         }
 
-        nums.length + 1
+        result
     }
 
     @tailrec

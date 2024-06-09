@@ -44,40 +44,42 @@ import com_github_leetcode.ListNode
  */
 object Solution {
     def isPalindrome(head: ListNode): Boolean = {
-        var len = 0
-        var right = head
-
-        // Calculate the length
-        while (right != null) {
-            right = right.next
-            len += 1
+        if (head == null || head.next == null) {
+            return true
+        }
+        def reverseList(node: ListNode): ListNode = {
+            var prev: ListNode = null
+            var current: ListNode = node
+            while (current != null) {
+                val nextNode = current.next
+                current.next = prev
+                prev = current
+                current = nextNode
+            }
+            prev
         }
 
-        // Reverse the right half of the list
-        len = len / 2
-        right = head
-        for (_ <- 0 until len) {
-            right = right.next
+        def findMiddle(node: ListNode): ListNode = {
+            var slow = node
+            var fast = node
+            while (fast != null && fast.next != null) {
+                slow = slow.next
+                fast = fast.next.next
+            }
+            slow
         }
 
-        var prev: ListNode = null
-        while (right != null) {
-            val next = right.next
-            right.next = prev
-            prev = right
-            right = next
-        }
-        var head2 = head
-        // Compare left half and right half
-        for (_ <- 0 until len) {
-            if (prev != null && head2.x == prev.x) {
-                head2 = head2.next
-                prev = prev.next
-            } else {
+        val middle = findMiddle(head)
+        var secondHalf = reverseList(middle)
+
+        var firstHalf = head
+        while (secondHalf != null) {
+            if (firstHalf.x != secondHalf.x) {
                 return false
             }
+            firstHalf = firstHalf.next
+            secondHalf = secondHalf.next
         }
-
         true
     }
 }

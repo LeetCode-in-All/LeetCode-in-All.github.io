@@ -56,11 +56,10 @@ object Solution {
         numRows = board.length
         numCols = board(0).length
         var result = false
-        for (row <- 0 until numRows) {
-            for (col <- 0 until numCols) {
+        for (row <- 0 until numRows if !result) {
+            for (col <- 0 until numCols if !result) {
                 if (board(row)(col) == word(0)) {
                     result = backTracking(board, row, col, word, 0)
-                    if (result) return true
                 }
             }
         }
@@ -75,11 +74,10 @@ object Solution {
         val originalValue = board(row)(col)
         board(row)(col) = '0'
         var output = false
-        for (dir <- directions) {
+        for (dir <- directions if !output) {
             val newRow = row + dir(0)
             val newCol = col + dir(1)
             output = backTracking(board, newRow, newCol, word, index + 1)
-            if (output) return true
         }
         board(row)(col) = originalValue
         output

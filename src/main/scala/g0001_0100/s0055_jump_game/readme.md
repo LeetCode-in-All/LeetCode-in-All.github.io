@@ -38,32 +38,31 @@ object Solution {
         val sz = nums.length
         // We set tmp to 1 so it won't break on the first iteration
         var tmp = 1
+        var result = true // Variable to store the result
 
-        for (i <- 0 until sz) {
+        for (i <- 0 until sz if result) {
             // We always deduct tmp for every iteration
             tmp -= 1
             if (tmp < 0) {
                 // If from the previous iteration tmp is already 0, it will be < 0 here,
                 // leading to a false value
-                return false
-            }
-            // We get the maximum value because this value is supposed to be our iterator. If both values are 0,
-            // then the next iteration will return false.
-            // We can stop the whole iteration with this condition. Without this condition, the code runs in 2ms (79.6%).
-            // Adding this condition improves the performance to 1ms (100%)
-            // because if the test case jump value is quite large, instead of just iterating, we can
-            // just check using this condition.
-            // Example: [10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] -> we can just jump to the end without iterating the whole array.
-            tmp = math.max(tmp, nums(i))
-            if (i + tmp >= sz - 1) {
-                return true
+                result = false
+            } else {
+                // We get the maximum value because this value is supposed to be our iterator. If both values are 0,
+                // then the next iteration will return false.
+                // We can stop the whole iteration with this condition. Without this condition, the code runs in 2ms (79.6%).
+                // Adding this condition improves the performance to 1ms (100%)
+                // because if the test case jump value is quite large, instead of just iterating, we can
+                // just check using this condition.
+                // Example: [10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] -> we can just jump to the end without iterating the whole array.
+                tmp = math.max(tmp, nums(i))
+                if (i + tmp >= sz - 1) {
+                    result = true
+                }
             }
         }
-        // We can just return true at the end because if tmp is 0 on the previous
-        // iteration,
-        // even though the next iteration's index is the last one, it will return false under the
-        // tmp < 0 condition.
-        true
+
+        result
     }
 }
 ```

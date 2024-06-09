@@ -51,27 +51,32 @@ An input string is valid if:
 
 ```scala
 import scala.collection.mutable.Stack
+import scala.util.control.Breaks._
 
 object Solution {
     def isValid(s: String): Boolean = {
         val stack = Stack[Char]()
+        var result = true
 
-        for (i <- 0 until s.length) {
-            val c = s.charAt(i)
-            if (c == '(' || c == '[' || c == '{') {
-                stack.push(c)
-            } else if (c == ')' && stack.nonEmpty && stack.top == '(') {
-                stack.pop()
-            } else if (c == '}' && stack.nonEmpty && stack.top == '{') {
-                stack.pop()
-            } else if (c == ']' && stack.nonEmpty && stack.top == '[') {
-                stack.pop()
-            } else {
-                return false
+        breakable {
+            for (i <- 0 until s.length) {
+                val c = s.charAt(i)
+                if (c == '(' || c == '[' || c == '{') {
+                    stack.push(c)
+                } else if (c == ')' && stack.nonEmpty && stack.top == '(') {
+                    stack.pop()
+                } else if (c == '}' && stack.nonEmpty && stack.top == '{') {
+                    stack.pop()
+                } else if (c == ']' && stack.nonEmpty && stack.top == '[') {
+                    stack.pop()
+                } else {
+                    result = false
+                    break()
+                }
             }
         }
 
-        stack.isEmpty
+        result && stack.isEmpty
     }
 }
 ```

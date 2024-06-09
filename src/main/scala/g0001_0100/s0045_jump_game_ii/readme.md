@@ -41,7 +41,8 @@ object Solution {
         var maxLength = 0
         var minJump = 0
 
-        for (i <- 0 until nums.length - 1) {
+        var result = -1
+        for (i <- 0 until nums.length - 1 if result == -1) {
             length -= 1
             maxLength -= 1
             maxLength = math.max(maxLength, nums(i))
@@ -52,11 +53,11 @@ object Solution {
             }
 
             if (length >= nums.length - i - 1) {
-                return minJump
+                result = minJump
             }
         }
 
-        minJump
+        if (result == -1) minJump else result
     }
 }
 ```

@@ -53,13 +53,14 @@ You must solve the problem **without** modifying the array `nums` and uses only 
 object Solution {
     def findDuplicate(nums: Array[Int]): Int = {
         val arr = new Array[Int](nums.length + 1)
+        var duplicate = 0
         for (num <- nums) {
             arr(num) += 1
             if (arr(num) == 2) {
-                return num
+                duplicate = num
             }
         }
-        0
+        duplicate
     }
 }
 ```

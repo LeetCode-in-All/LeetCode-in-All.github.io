@@ -33,6 +33,8 @@ Given an array of integers `heights` representing the histogram's bar height whe
 ## Solution
 
 ```scala
+import scala.util.control.Breaks.{break, breakable}
+
 object Solution {
     def largestRectangleArea(heights: Array[Int]): Int = {
         largestArea(heights, 0, heights.length)
@@ -84,12 +86,16 @@ object Solution {
     }
 
     private def checkIfSorted(a: Array[Int], start: Int, limit: Int): Boolean = {
-        for (i <- start + 1 until limit) {
-            if (a(i) < a(i - 1)) {
-                return false
+        var sorted = true
+        breakable {
+            for (i <- start + 1 until limit) {
+                if (a(i) < a(i - 1)) {
+                    sorted = false
+                    break
+                }
             }
         }
-        true
+        sorted
     }
 
     private def maxOfThreeNums(a: Int, b: Int, c: Int): Int = {
