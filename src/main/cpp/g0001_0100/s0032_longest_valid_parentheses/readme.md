@@ -34,8 +34,6 @@ Given a string containing just the characters `'('` and `')'`, find the length o
 *   <code>0 <= s.length <= 3 * 10<sup>4</sup></code>
 *   `s[i]` is `'('`, or `')'`.
 
-
-
 ## Solution
 
 ```cpp

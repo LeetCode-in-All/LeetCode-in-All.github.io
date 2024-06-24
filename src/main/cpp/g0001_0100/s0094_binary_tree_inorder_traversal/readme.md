@@ -50,8 +50,6 @@ Given the `root` of a binary tree, return _the inorder traversal of its nodes' v
 
 **Follow up:** Recursive solution is trivial, could you do it iteratively?
 
-
-
 ## Solution
 
 ```cpp

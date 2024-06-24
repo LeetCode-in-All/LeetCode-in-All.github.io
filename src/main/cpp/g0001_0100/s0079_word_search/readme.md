@@ -43,8 +43,6 @@ The word can be constructed from letters of sequentially adjacent cells, where a
 
 **Follow up:** Could you use search pruning to make your solution faster with a larger `board`?
 
-
-
 ## Solution
 
 ```cpp

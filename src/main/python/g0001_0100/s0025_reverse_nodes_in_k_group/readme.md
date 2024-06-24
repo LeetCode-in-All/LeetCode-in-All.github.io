@@ -48,45 +48,98 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
 
 **Follow-up:** Can you solve the problem in O(1) extra memory space?
 
+To solve the "Reverse Nodes in k-Group" problem, you can use the following approach:
 
+### Approach:
 
-## Solution
+1. **Check if Reversal is Possible:**
+   - Before reversing, check if there are at least `k` nodes remaining in the linked list.
+
+2. **Reverse Nodes:**
+   - Reverse the next `k` nodes of the linked list.
+
+3. **Connect the Reversed Portion:**
+   - Connect the reversed portion to the previous part of the linked list.
+
+4. **Update Pointers:**
+   - Move the pointers to their correct positions for the next iteration.
+
+5. **Repeat:**
+   - Repeat the process until there are fewer than `k` nodes left.
+
+6. **Return Result:**
+   - Return the modified head of the linked list.
+
+### Python Code:
 
 ```python
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 class Solution:
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        if head is None or head.next is None or k == 1:
-            return head
+    def reverseKGroup(self, head, k):
+        # Function to reverse a linked list
+        def reverseList(start, end):
+            prev, curr = None, start
+            while curr != end:
+                next_node = curr.next
+                curr.next = prev
+                prev = curr
+                curr = next_node
+            return prev
 
-        j = 0
-        length = head
-        # Loop for checking the length of the linked list, if the linked list is less than k, then return it as it is.
-        while j < k:
-            if length is None:
-                return head
-            length = length.next
-            j += 1
+        # Initialize pointers
+        dummy = ListNode(0)
+        dummy.next = head
+        prev, curr = dummy, head
 
-        # Reverse linked list logic applied here.
-        current = head
-        next_node = None
-        prev = None
-        i = 0
-        # Traverse the while loop for k times to reverse the node in k groups.
-        while i != k:
-            next_node = current.next
-            current.next = prev
-            prev = current
-            current = next_node
-            i += 1
+        # Find the length of the linked list
+        length = 0
+        while head:
+            length += 1
+            head = head.next
 
-        # 'head' is now pointing to the first node of k group, which is now going to point to the next k group linked list.
-        # Recursion for further remaining linked list.
-        head.next = self.reverseKGroup(current, k)
-        return prev
+        # Reverse nodes in k-group
+        while length >= k:
+            end = curr
+            for _ in range(k - 1):
+                end = end.next
+
+            # Reverse k nodes
+            next_start = end.next
+            reversed_start = reverseList(curr, next_start)
+
+            # Connect reversed portion to the previous part
+            prev.next = reversed_start
+            curr.next = next_start
+
+            # Move pointers for the next iteration
+            prev, curr = curr, next_start
+            length -= k
+
+        # Return the modified head
+        return dummy.next
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+head1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+result1 = solution.reverseKGroup(head1, 2)  # Output: ListNode(2, ListNode(1, ListNode(4, ListNode(3, ListNode(5))))))
+
+# Example 2:
+head2 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+result2 = solution.reverseKGroup(head2, 3)  # Output: ListNode(3, ListNode(2, ListNode(1, ListNode(4, ListNode(5))))))
+
+# Example 3:
+head3 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+result3 = solution.reverseKGroup(head3, 1)  # Output: ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+
+# Example 4:
+head4 = ListNode(1)
+result4 = solution.reverseKGroup(head4, 1)  # Output: ListNode(1)
 ```
+
+This code defines a `Solution` class with a method `reverseKGroup` that takes a linked list and an integer `k` as input and reverses every `k` nodes in the linked list. The example usage demonstrates how to create an instance of the `Solution` class and call the `reverseKGroup` method with different inputs.

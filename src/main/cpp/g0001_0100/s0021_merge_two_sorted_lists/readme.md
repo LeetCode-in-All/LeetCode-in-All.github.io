@@ -33,8 +33,6 @@ Merge two sorted linked lists and return it as a **sorted** list. The list shoul
 *   `-100 <= Node.val <= 100`
 *   Both `l1` and `l2` are sorted in **non-decreasing** order.
 
-
-
 ## Solution
 
 ```cpp

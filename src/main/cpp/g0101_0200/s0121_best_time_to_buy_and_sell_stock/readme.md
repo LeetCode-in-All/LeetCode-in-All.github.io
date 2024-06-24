@@ -32,8 +32,6 @@ Return _the maximum profit you can achieve from this transaction_. If you cannot
 *   <code>1 <= prices.length <= 10<sup>5</sup></code>
 *   <code>0 <= prices[i] <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

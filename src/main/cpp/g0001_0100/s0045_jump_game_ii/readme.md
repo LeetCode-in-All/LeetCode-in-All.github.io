@@ -32,8 +32,6 @@ You can assume that you can always reach the last index.
 *   <code>1 <= nums.length <= 10<sup>4</sup></code>
 *   `0 <= nums[i] <= 1000`
 
-
-
 ## Solution
 
 ```cpp

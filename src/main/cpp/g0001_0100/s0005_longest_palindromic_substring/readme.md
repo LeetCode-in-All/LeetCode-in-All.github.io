@@ -36,8 +36,6 @@ Given a string `s`, return _the longest palindromic substring_ in `s`.
 *   `1 <= s.length <= 1000`
 *   `s` consist of only digits and English letters.
 
-
-
 ## Solution
 
 ```cpp

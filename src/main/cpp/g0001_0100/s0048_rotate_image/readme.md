@@ -44,8 +44,6 @@ You have to rotate the image [**in-place**](https://en.wikipedia.org/wiki/In-pla
 *   `1 <= n <= 20`
 *   `-1000 <= matrix[i][j] <= 1000`
 
-
-
 ## Solution
 
 ```cpp

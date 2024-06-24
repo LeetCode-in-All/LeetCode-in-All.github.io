@@ -44,8 +44,6 @@ A **substring** is a contiguous sequence of characters within the string.
 
 **Follow up:** Could you find an algorithm that runs in `O(m + n)` time?
 
-
-
 ## Solution
 
 ```cpp

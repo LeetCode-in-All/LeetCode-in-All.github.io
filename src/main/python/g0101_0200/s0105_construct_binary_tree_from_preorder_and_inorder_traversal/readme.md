@@ -31,9 +31,32 @@ Given two integer arrays `preorder` and `inorder` where `preorder` is the preord
 *   `preorder` is **guaranteed** to be the preorder traversal of the tree.
 *   `inorder` is **guaranteed** to be the inorder traversal of the tree.
 
+To solve the "Construct Binary Tree from Preorder and Inorder Traversal" problem in Python with a `Solution` class, we'll use a recursive approach. Below are the steps:
 
+1. **Create a `Solution` class**: Define a class named `Solution` to encapsulate our solution methods.
 
-## Solution
+2. **Create a `buildTree` method**: This method takes two integer arrays, `preorder` and `inorder`, as input and returns the constructed binary tree.
+
+3. **Check for empty arrays**: Check if either of the arrays `preorder` or `inorder` is empty. If so, return null, as there's no tree to construct.
+
+4. **Define a helper method**: Define a recursive helper method `build` to construct the binary tree.
+   - The method should take the indices representing the current subtree in both `preorder` and `inorder`.
+   - The start and end indices in `preorder` represent the current subtree's preorder traversal.
+   - The start and end indices in `inorder` represent the current subtree's inorder traversal.
+   
+5. **Base case**: If the start index of `preorder` is greater than the end index or if the start index of `inorder` is greater than the end index, return null.
+
+6. **Find the root node**: The root node is the first element in the `preorder` array.
+
+7. **Find the root's position in `inorder`**: Iterate through the `inorder` array to find the root's position.
+
+8. **Recursively build left and right subtrees**: 
+   - Recursively call the `build` method for the left subtree with updated indices.
+   - Recursively call the `build` method for the right subtree with updated indices.
+   
+9. **Return the root node**: After constructing the left and right subtrees, return the root node.
+
+Here's the Python implementation:
 
 ```python
 # Definition for a binary tree node.
@@ -67,3 +90,5 @@ class Solution:
             self.map[inorder[i]] = i
         return self.answer(preorder, inorder, 0, len(preorder) - 1)
 ```
+
+This implementation follows the steps outlined above and efficiently constructs the binary tree from preorder and inorder traversals in Python.

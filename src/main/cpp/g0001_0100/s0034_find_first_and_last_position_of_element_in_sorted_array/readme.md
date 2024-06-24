@@ -36,8 +36,6 @@ You must write an algorithm with `O(log n)` runtime complexity.
 *   `nums` is a non-decreasing array.
 *   <code>-10<sup>9</sup> <= target <= 10<sup>9</sup></code>
 
-
-
 ## Solution
 
 ```cpp

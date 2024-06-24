@@ -29,8 +29,6 @@ Each time you can either climb `1` or `2` steps. In how many distinct ways can y
 
 *   `1 <= n <= 45`
 
-
-
 ## Solution
 
 ```cpp

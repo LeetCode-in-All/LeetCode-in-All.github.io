@@ -23,8 +23,6 @@ Given `n` pairs of parentheses, write a function to _generate all combinations o
 
 *   `1 <= n <= 8`
 
-
-
 ## Solution
 
 ```cpp

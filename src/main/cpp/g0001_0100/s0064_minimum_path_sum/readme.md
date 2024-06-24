@@ -32,8 +32,6 @@ Given a `m x n` `grid` filled with non-negative numbers, find a path from top le
 *   `1 <= m, n <= 200`
 *   `0 <= grid[i][j] <= 100`
 
-
-
 ## Solution
 
 ```cpp

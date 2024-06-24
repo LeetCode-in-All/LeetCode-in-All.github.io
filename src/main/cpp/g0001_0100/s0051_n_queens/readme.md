@@ -31,8 +31,6 @@ Each solution contains a distinct board configuration of the n-queens' placement
 
 *   `1 <= n <= 9`
 
-
-
 ## Solution
 
 ```cpp

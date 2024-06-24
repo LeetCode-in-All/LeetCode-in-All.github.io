@@ -25,8 +25,6 @@ Given an integer `n`, return _the number of structurally unique **BST'**s (binar
 
 *   `1 <= n <= 19`
 
-
-
 ## Solution
 
 ```cpp

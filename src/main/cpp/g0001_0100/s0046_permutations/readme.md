@@ -31,8 +31,6 @@ Given an array `nums` of distinct integers, return _all the possible permutation
 *   `-10 <= nums[i] <= 10`
 *   All the integers of `nums` are **unique**.
 
-
-
 ## Solution
 
 ```cpp

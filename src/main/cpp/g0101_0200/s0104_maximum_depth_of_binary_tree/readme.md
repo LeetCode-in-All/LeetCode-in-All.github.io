@@ -40,8 +40,6 @@ A binary tree's **maximum depth** is the number of nodes along the longest path 
 *   The number of nodes in the tree is in the range <code>[0, 10<sup>4</sup>]</code>.
 *   `-100 <= Node.val <= 100`
 
-
-
 ## Solution
 
 ```cpp

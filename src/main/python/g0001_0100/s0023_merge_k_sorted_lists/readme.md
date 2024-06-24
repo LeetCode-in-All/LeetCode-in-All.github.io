@@ -38,52 +38,74 @@ _Merge all the linked-lists into one sorted linked-list and return it._
 *   `lists[i]` is sorted in **ascending order**.
 *   The sum of `lists[i].length` won't exceed `10^4`.
 
+To solve the "Merge k Sorted Lists" problem, you can follow these steps:
 
+### Approach:
 
-## Solution
+1. **Initialize a Priority Queue (Min-Heap):**
+   - Initialize a priority queue (min-heap) to store nodes from all linked lists based on their values.
+
+2. **Populate Priority Queue:**
+   - Iterate through each linked list and insert the first node (if not None) from each list into the priority queue.
+
+3. **Merge Lists using Priority Queue:**
+   - While the priority queue is not empty:
+     - Pop the smallest node from the priority queue.
+     - Append the node's value to the result list.
+     - If the node has a next element, insert the next node into the priority queue.
+
+4. **Return Result List:**
+   - Return the merged result list.
+
+### Python Code:
 
 ```python
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 class Solution:
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if len(lists) == 0:
-            return ListNode().next
-        else:
-            cnt = 0
-            n = len(lists)
+    def mergeKLists(self, lists):
+        # Initialize a priority queue
+        heap = []
+        
+        # Populate priority queue with the first node from each list
+        for i, lst in enumerate(lists):
+            if lst:
+                heapq.heappush(heap, (lst.val, i, lst))
 
-            first = ListNode()
-            temp = first
-            while cnt < n:
-                temp.next = lists[cnt]
-                while temp.next is not None:
-                    temp = temp.next
-                cnt +=1
-            return self.list_to_linked_list(self.linked_list_to_list(first.next))
+        # Initialize result dummy node and pointer
+        result_dummy = ListNode()
+        current = result_dummy
 
-    def linked_list_to_list(self,head):
-        if head == None:
-            return 
-        else:
-            l = []
-            temp = head
-            while temp is not None:
-                l.append(temp.val)
-                temp = temp.next
-            return sorted(l)
+        # Merge lists using priority queue
+        while heap:
+            val, i, node = heapq.heappop(heap)
+            current.next = ListNode(val)
+            current = current.next
+            if node.next:
+                heapq.heappush(heap, (node.next.val, i, node.next))
 
-    def list_to_linked_list(self,l):
-        if l == None:
-            return
-        first = ListNode()
-        temp = first
-        for i in l:
-            node = ListNode(i)
-            temp.next = node
-            temp = temp.next
-        return first.next
+        # Return merged result
+        return result_dummy.next
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+lists1 = [ListNode(1, ListNode(4, ListNode(5))), ListNode(1, ListNode(3, ListNode(4))), ListNode(2, ListNode(6))]
+result1 = solution.mergeKLists(lists1)  # Output: ListNode(1, ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(4, ListNode(5, ListNode(6))))))))
+
+# Example 2:
+lists2 = []
+result2 = solution.mergeKLists(lists2)  # Output: None
+
+# Example 3:
+lists3 = \[\[]]
+result3 = solution.mergeKLists(lists3)  # Output: None
 ```
+
+This code defines a `Solution` class with a method `mergeKLists` that takes a list of linked lists as input and returns a merged sorted linked list. The example usage demonstrates how to create an instance of the `Solution` class and call the `mergeKLists` method with different inputs.

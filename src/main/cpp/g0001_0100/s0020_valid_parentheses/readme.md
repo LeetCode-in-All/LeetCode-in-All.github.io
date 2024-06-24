@@ -47,8 +47,6 @@ An input string is valid if:
 *   <code>1 <= s.length <= 10<sup>4</sup></code>
 *   `s` consists of parentheses only `'()[]{}'`.
 
-
-
 ## Solution
 
 ```cpp

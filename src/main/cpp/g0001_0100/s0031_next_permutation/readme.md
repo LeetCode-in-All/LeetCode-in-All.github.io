@@ -40,8 +40,6 @@ The replacement must be **[in place](http://en.wikipedia.org/wiki/In-place_algor
 *   `1 <= nums.length <= 100`
 *   `0 <= nums[i] <= 100`
 
-
-
 ## Solution
 
 ```cpp

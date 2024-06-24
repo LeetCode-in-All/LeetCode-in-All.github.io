@@ -37,8 +37,6 @@ Given a signed 32-bit integer `x`, return `x` _with its digits reversed_. If rev
 
 *   <code>-2<sup>31</sup> <= x <= 2<sup>31</sup> - 1</code>
 
-
-
 ## Solution
 
 ```cpp

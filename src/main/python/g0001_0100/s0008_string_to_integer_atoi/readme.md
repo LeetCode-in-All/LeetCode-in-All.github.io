@@ -115,37 +115,95 @@ Since -91283472332 is less than the lower bound of the range [-2<sup>31</sup>, 2
 *   `0 <= s.length <= 200`
 *   `s` consists of English letters (lower-case and upper-case), digits (`0-9`), `' '`, `'+'`, `'-'`, and `'.'`.
 
+Here are the steps to solve the "String to Integer (atoi)" problem:
 
+### Approach:
 
-## Solution
+1. **Handle Special Case for Empty String:**
+   - If the input string `s` is empty, return 0.
+
+2. **Skip Leading Whitespace:**
+   - Iterate through the string to skip any leading whitespace characters.
+
+3. **Determine Sign:**
+   - Check if the next character (if not already at the end of the string) is `'-'` or `'+'`. Read this character in if it is either. This determines if the final result is negative or positive respectively. Assume the result is positive if neither is present.
+
+4. **Read Digits:**
+   - Read in the characters until the next non-digit character or the end of the input is reached. The rest of the string is ignored.
+
+5. **Convert to Integer:**
+   - Convert the read digits into an integer.
+   - If no digits were read, return 0.
+
+6. **Apply Sign:**
+   - Change the sign of the integer as necessary based on the step 3.
+
+7. **Check for Overflow:**
+   - If the integer is out of the 32-bit signed integer range <code>[-2<sup>31</sup>, 2<sup>31</sup> - 1]</code>, then clamp the integer so that it remains in the range. Specifically, integers less than <code>-2<sup>31</sup></code> should be clamped to <code>-2<sup>31</sup></code>, and integers greater than <code>2<sup>31</sup> - 1</code> should be clamped to <code>2<sup>31</sup> - 1</code>.
+
+8. **Return Result:**
+   - Return the integer as the final result.
+
+### Python Code:
 
 ```python
 class Solution:
     def myAtoi(self, s: str) -> int:
-        s = s.lstrip()
-        if s == '':
+        # Handle special case for empty string
+        if not s:
             return 0
 
-        result = ''
+        # Skip leading whitespace
         i = 0
-
-        negative = False
-        if s[0] == '-':
-            negative = True
-            i += 1
-        elif s[0] == '+':
+        while i < len(s) and s[i].isspace():
             i += 1
 
-        while i < len(s) and s[i].isnumeric():
-            result += s[i]
+        # Determine sign
+        sign = 1
+        if i < len(s) and (s[i] == '-' or s[i] == '+'):
+            sign = -1 if s[i] == '-' else 1
             i += 1
 
-        if result:
-            result = -1*int(result) if negative else int(result)
-            if result < -2**31:
-                return -2**31
-            elif result > 2**31 - 1:
-                return 2**31 - 1
+        # Read digits
+        digits = 0
+        while i < len(s) and s[i].isdigit():
+            digits = digits * 10 + int(s[i])
+            i += 1
+
+        # Apply sign
+        result = sign * digits
+
+        # Check for overflow
+        INT_MIN, INT_MAX = -2**31, 2**31 - 1
+        if result < INT_MIN:
+            return INT_MIN
+        elif result > INT_MAX:
+            return INT_MAX
+        else:
             return result
-        return 0
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+s1 = "42"
+print(solution.myAtoi(s1))  # Output: 42
+
+# Example 2:
+s2 = " -42"
+print(solution.myAtoi(s2))  # Output: -42
+
+# Example 3:
+s3 = "4193 with words"
+print(solution.myAtoi(s3))  # Output: 4193
+
+# Example 4:
+s4 = "words and 987"
+print(solution.myAtoi(s4))  # Output: 0
+
+# Example 5:
+s5 = "-91283472332"
+print(solution.myAtoi(s5))  # Output: -2147483648
 ```
+
+This code defines a `Solution` class with a method `myAtoi` that takes a string `s` as input and returns the 32-bit signed integer. The example usage demonstrates how to create an instance of the `Solution` class and call the `myAtoi` method with different inputs.

@@ -28,8 +28,6 @@ You must write an algorithm that runs in `O(n)` time.
 *   <code>0 <= nums.length <= 10<sup>5</sup></code>
 *   <code>-10<sup>9</sup> <= nums[i] <= 10<sup>9</sup></code>
 
-
-
 ## Solution
 
 ```cpp

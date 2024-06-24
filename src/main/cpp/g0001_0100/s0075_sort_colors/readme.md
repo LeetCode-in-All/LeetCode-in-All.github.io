@@ -43,8 +43,6 @@ You must solve this problem without using the library's sort function.
 
 **Follow up:** Could you come up with a one-pass algorithm using only constant extra space?
 
-
-
 ## Solution
 
 ```cpp

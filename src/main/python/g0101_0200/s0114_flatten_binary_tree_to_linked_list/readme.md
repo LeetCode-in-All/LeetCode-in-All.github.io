@@ -37,9 +37,27 @@ Given the `root` of a binary tree, flatten the tree into a "linked list":
 
 **Follow up:** Can you flatten the tree in-place (with `O(1)` extra space)?
 
+To solve the "Flatten Binary Tree to Linked List" problem in Python with a `Solution` class, we'll use a recursive approach. Below are the steps:
 
+1. **Create a `Solution` class**: Define a class named `Solution` to encapsulate our solution methods.
 
-## Solution
+2. **Create a `flatten` method**: This method takes the root node of the binary tree as input and flattens the tree into a linked list using preorder traversal.
+
+3. **Check for null root**: Check if the root is null. If so, there's no tree to flatten, so return.
+
+4. **Recursively flatten the tree**: Define a recursive helper method `flattenTree` to perform the flattening.
+   - The method should take the current node as input.
+   - Perform a preorder traversal of the tree.
+   - For each node, if it has a left child:
+     - Find the rightmost node in the left subtree.
+     - Attach the right subtree of the current node to the right of the rightmost node.
+     - Move the left subtree to the right subtree position.
+     - Set the left child of the current node to null.
+   - Recursively call the method for the right child.
+
+5. **Call the helper method**: Call the `flattenTree` method with the root node.
+
+Here's the Python implementation:
 
 ```python
 # Definition for a binary tree node.
@@ -72,5 +90,7 @@ class Solution:
         if tail.right is None:
             return tail
         else:
-            return self.find_tail(tail.right)
+            return self.find_tail(tail.right)   
 ```
+
+This implementation follows the steps outlined above and efficiently flattens the binary tree into a linked list using preorder traversal in Python.

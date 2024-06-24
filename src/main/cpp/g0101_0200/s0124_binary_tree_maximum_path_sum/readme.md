@@ -36,8 +36,6 @@ Given the `root` of a binary tree, return _the maximum **path sum** of any **non
 *   The number of nodes in the tree is in the range <code>[1, 3 * 10<sup>4</sup>]</code>.
 *   `-1000 <= Node.val <= 1000`
 
-
-
 ## Solution
 
 ```cpp

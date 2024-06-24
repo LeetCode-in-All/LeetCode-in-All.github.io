@@ -30,8 +30,6 @@ Given the `root` of a binary tree, _check whether it is a mirror of itself_ (i.e
 
 **Follow up:** Could you solve it both recursively and iteratively?
 
-
-
 ## Solution
 
 ```cpp

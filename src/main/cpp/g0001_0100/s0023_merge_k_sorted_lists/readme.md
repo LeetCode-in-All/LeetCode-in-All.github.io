@@ -38,8 +38,6 @@ _Merge all the linked-lists into one sorted linked-list and return it._
 *   `lists[i]` is sorted in **ascending order**.
 *   The sum of `lists[i].length` won't exceed `10^4`.
 
-
-
 ## Solution
 
 ```cpp

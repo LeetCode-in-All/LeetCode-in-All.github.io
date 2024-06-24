@@ -34,44 +34,61 @@ Given a string containing just the characters `'('` and `')'`, find the length o
 *   <code>0 <= s.length <= 3 * 10<sup>4</sup></code>
 *   `s[i]` is `'('`, or `')'`.
 
+To solve the "Longest Valid Parentheses" problem, you can use the following steps:
 
+### Approach:
 
-## Solution
+1. **Initialize Variables:**
+   - Initialize a variable `max_length` to store the maximum valid parentheses substring length.
+   - Initialize a stack to keep track of indices of opening parentheses.
+
+2. **Traverse the String:**
+   - Iterate through each character in the string.
+   - If the character is `'('`, push its index onto the stack.
+   - If the character is `')'`:
+     - If the stack is not empty, pop an element from the stack.
+     - If the stack becomes empty:
+       - Push the current index onto the stack (marks the start of a potential new valid substring).
+       - Update `max_length` using the difference between the current index and the index popped from the stack.
+     - If the stack is not empty, update `max_length` using the difference between the current index and the index at the top of the stack.
+
+3. **Final Result:**
+   - The value of `max_length` will represent the length of the longest valid parentheses substring.
+
+### Python Code:
 
 ```python
 class Solution:
-    def longestValidParentheses(self, s: str) -> int:
+    def longestValidParentheses(self, s):
+        stack = [-1]  # Initialize the stack with -1 to handle the case when the first parenthesis is ')'
         max_length = 0
-        left = 0
-        right = 0
-        n = len(s)
-        
-        # First pass: left to right
-        for i in range(n):
+
+        for i in range(len(s)):
             if s[i] == '(':
-                left += 1
-            else:
-                right += 1
-            if right > left:
-                left = 0
-                right = 0
-            if left == right:
-                max_length = max(max_length, 2 * right)
-        
-        left = 0
-        right = 0
-        
-        # Second pass: right to left
-        for i in range(n - 1, -1, -1):
-            if s[i] == '(':
-                left += 1
-            else:
-                right += 1
-            if left > right:
-                left = 0
-                right = 0
-            if left == right:
-                max_length = max(max_length, 2 * left)
-        
+                stack.append(i)
+            else:  # s[i] == ')'
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    max_length = max(max_length, i - stack[-1])
+
         return max_length
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+s1 = "(()"
+print(solution.longestValidParentheses(s1))  # Output: 2
+
+# Example 2:
+s2 = ")()())"
+print(solution.longestValidParentheses(s2))  # Output: 4
+
+# Example 3:
+s3 = ""
+print(solution.longestValidParentheses(s3))  # Output: 0
 ```
+
+This code defines a `Solution` class with a method `longestValidParentheses` that takes a string `s` and returns the length of the longest valid parentheses substring. The example usage demonstrates how to create an instance of the `Solution` class and call the `longestValidParentheses` method with different inputs.

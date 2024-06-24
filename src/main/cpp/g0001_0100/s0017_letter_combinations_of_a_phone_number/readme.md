@@ -34,8 +34,6 @@ A mapping of digit to letters (just like on the telephone buttons) is given belo
 *   `0 <= digits.length <= 4`
 *   `digits[i]` is a digit in the range `['2', '9']`.
 
-
-
 ## Solution
 
 ```cpp

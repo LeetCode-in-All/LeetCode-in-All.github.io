@@ -48,31 +48,52 @@ You must write an algorithm that runs in `O(log n) time.`
 *   All the integers of `nums` are **unique**.
 *   `nums` is sorted and rotated between `1` and `n` times.
 
-## Solution
+To solve the problem, we can use a binary search approach. This method leverages the properties of the rotated array and achieves the required O(log n) time complexity.
+
+### Steps:
+
+1. **Initialization**:
+   - Define two pointers, `left` and `right`, initialized to the start and end of the array, respectively.
+
+2. **Binary Search**:
+   - While `left` is less than `right`, perform the following steps:
+     - Calculate the mid-point `mid` using integer division.
+     - Determine if the middle element is greater than the rightmost element:
+       - If `nums[mid]` is greater than `nums[right]`, it means the minimum element is in the right half of the array. Move the `left` pointer to `mid + 1`.
+       - Otherwise, the minimum element is in the left half or could be the `mid` itself. Move the `right` pointer to `mid`.
+
+3. **Return Result**:
+   - After the loop terminates, the `left` pointer will point to the minimum element in the array.
+
+### Implementation:
 
 ```python
 class Solution:
-    def findMinUtil(self, nums: List[int], l: int, r: int) -> int:
-        if l == r:
-            return nums[l]
-        
-        mid = (l + r) // 2
-        
-        if mid == l and nums[mid] < nums[r]:
-            return nums[l]
-        
-        if mid - 1 >= 0 and nums[mid - 1] > nums[mid]:
-            return nums[mid]
-        
-        if nums[mid] < nums[l]:
-            return self.findMinUtil(nums, l, mid - 1)
-        elif nums[mid] > nums[r]:
-            return self.findMinUtil(nums, mid + 1, r)
-        
-        return self.findMinUtil(nums, l, mid - 1)
-
     def findMin(self, nums: List[int]) -> int:
-        l = 0
-        r = nums.length - 1
-        return self.findMinUtil(nums, l, r)
+        left, right = 0, len(nums) - 1
+        
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+        
+        return nums[left]
 ```
+
+### Explanation:
+
+1. **Initialization**:
+   - `left` starts at 0 and `right` starts at the last index of the array.
+
+2. **Binary Search**:
+   - The `while` loop runs as long as `left` is less than `right`.
+   - `mid` is calculated as the average of `left` and `right`.
+   - If the middle element `nums[mid]` is greater than `nums[right]`, it means the minimum value is in the right part of the array. We discard the left half by setting `left` to `mid + 1`.
+   - If `nums[mid]` is less than or equal to `nums[right]`, it means the minimum value is in the left part, including `mid`. We set `right` to `mid`.
+
+3. **Return Result**:
+   - When the loop terminates, `left` will be at the index of the minimum element, so we return `nums[left]`.
+
+This approach efficiently narrows down the search space by half in each iteration, ensuring a logarithmic time complexity.

@@ -58,7 +58,43 @@ Your code will **only** be given the `head` of the original linked list.
 *   `-10000 <= Node.val <= 10000`
 *   `Node.random` is `null` or is pointing to some node in the linked list.
 
-To solve this problem with the `Solution` class, we can use a hashmap to keep track of the mapping between original nodes and their corresponding copied nodes. 
+To solve this problem with the `Solution` class, we can use a hashmap to keep track of the mapping between original nodes and their corresponding copied nodes. Here are the steps:
+
+1. Define the `Solution` class with a method `copyRandomList` that takes the head of the original linked list as input and returns the head of the copied linked list.
+2. Within the `copyRandomList` method, if the input `head` is `None`, return `None` as the copied list is empty.
+3. Initialize an empty hashmap to store the mapping between original nodes and copied nodes.
+4. Iterate through the original linked list and create a copied node for each original node. Set the value of the copied node to be the same as the original node and set both `next` and `random` pointers of the copied node to `None`.
+5. Store the mapping between original nodes and copied nodes in the hashmap.
+6. Iterate through the original linked list again and update the `next` and `random` pointers of copied nodes according to the mapping stored in the hashmap.
+7. Finally, return the head of the copied linked list.
+
+Here's how the `Solution` class would look like in Python:
+
+```python
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return None
+        
+        mapping = {}
+        
+        # Create copies of nodes without pointers
+        current = head
+        while current:
+            mapping[current] = Node(current.val)
+            current = current.next
+        
+        # Assign pointers for each copied node
+        current = head
+        while current:
+            mapping[current].next = mapping.get(current.next)
+            mapping[current].random = mapping.get(current.random)
+            current = current.next
+        
+        return mapping[head]
+```
+
+Make sure to define the `Node` class before using it in the `copyRandomList` method. This solution constructs a deep copy of the original linked list while maintaining the relationships between nodes as specified.
 
 ## Solution
 

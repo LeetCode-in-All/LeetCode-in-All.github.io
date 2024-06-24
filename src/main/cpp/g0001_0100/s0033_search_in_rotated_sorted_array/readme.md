@@ -39,8 +39,6 @@ You must write an algorithm with `O(log n)` runtime complexity.
 *   `nums` is an ascending array that is possibly rotated.
 *   <code>-10<sup>4</sup> <= target <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

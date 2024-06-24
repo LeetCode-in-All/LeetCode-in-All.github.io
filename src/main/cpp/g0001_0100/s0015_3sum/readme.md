@@ -32,8 +32,6 @@ Notice that the solution set must not contain duplicate triplets.
 *   `0 <= nums.length <= 3000`
 *   <code>-10<sup>5</sup> <= nums[i] <= 10<sup>5</sup></code>
 
-
-
 ## Solution
 
 ```cpp

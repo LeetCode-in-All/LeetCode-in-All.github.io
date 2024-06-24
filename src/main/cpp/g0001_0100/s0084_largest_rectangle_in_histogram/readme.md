@@ -30,8 +30,6 @@ Given an array of integers `heights` representing the histogram's bar height whe
 *   <code>1 <= heights.length <= 10<sup>5</sup></code>
 *   <code>0 <= heights[i] <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

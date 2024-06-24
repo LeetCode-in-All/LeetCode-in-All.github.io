@@ -32,9 +32,22 @@ Return _the maximum profit you can achieve from this transaction_. If you cannot
 *   <code>1 <= prices.length <= 10<sup>5</sup></code>
 *   <code>0 <= prices[i] <= 10<sup>4</sup></code>
 
+To solve the "Best Time to Buy and Sell Stock" problem in Python with a `Solution` class, we'll use a greedy algorithm. Below are the steps:
 
+1. **Create a `Solution` class**: Define a class named `Solution` to encapsulate our solution methods.
 
-## Solution
+2. **Create a `maxProfit` method**: This method takes an array `prices` as input and returns the maximum profit that can be achieved by buying and selling the stock.
+
+3. **Initialize variables**: Initialize two variables, `minPrice` to store the minimum price seen so far and `maxProfit` to store the maximum profit seen so far. Initialize `maxProfit` to 0.
+
+4. **Iterate through the prices array**:
+   - For each price in the array:
+     - Update `minPrice` to the minimum of the current price and `minPrice`.
+     - Update `maxProfit` to the maximum of the current profit (price - `minPrice`) and `maxProfit`.
+
+5. **Return the maximum profit**: After iterating through the entire array, return `maxProfit`.
+
+Here's the Python implementation:
 
 ```python
 class Solution:
@@ -50,3 +63,5 @@ class Solution:
 
         return max_profit
 ```
+
+This implementation follows the steps outlined above and efficiently calculates the maximum profit that can be achieved by buying and selling the stock in Python.

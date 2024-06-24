@@ -46,8 +46,6 @@ You must write an algorithm with `O(log n)` runtime complexity.
 *   `nums` contains **distinct** values sorted in **ascending** order.
 *   <code>-10<sup>4</sup> <= target <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

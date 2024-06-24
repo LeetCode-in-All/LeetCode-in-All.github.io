@@ -36,8 +36,6 @@ A **valid BST** is defined as follows:
 *   The number of nodes in the tree is in the range <code>[1, 10<sup>4</sup>]</code>.
 *   <code>-2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1</code>
 
-
-
 ## Solution
 
 ```cpp

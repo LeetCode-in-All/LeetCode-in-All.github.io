@@ -58,33 +58,65 @@ The matching should cover the **entire** input string (not partial).
 *   `p` contains only lowercase English letters, `'.'`, and `'*'`.
 *   It is guaranteed for each appearance of the character `'*'`, there will be a previous valid character to match.
 
+Here are the steps for the recursive approach:
 
+### Recursive Approach:
 
-## Solution
+1. **Base Cases:**
+   - If the pattern `p` is empty, the matching is successful if the string `s` is also empty. Return `True` if both are empty; otherwise, return `False`.
+   - If the pattern `p` has only one character or the next character is not `'*'`, check if the first characters of `s` and `p` match. If yes, move to the next characters of both `s` and `p`; otherwise, return `False`.
+
+2. **Handle '*' Character:**
+   - If the next character in `p` is `'*'`, there are two possibilities:
+     - Skip the `'*'` and the preceding character in `p` (i.e., match zero occurrences of the preceding character).
+     - Match one occurrence of the preceding character in `p` with the current character in `s`.
+
+3. **Recursive Calls:**
+   - Recursively call the function with updated `s` and `p` for the possibilities mentioned in step 2.
+
+4. **Return Result:**
+   - Return `True` if any recursive call returns `True`; otherwise, return `False`.
+
+### Python Code (Recursive):
 
 ```python
 class Solution:
-    def __init__(self):
-        self.cache = None
-
     def isMatch(self, s: str, p: str) -> bool:
-        self.cache = [[None] * (len(p) + 1) for _ in range(len(s) + 1)]
-        return self._isMatch(s, p, 0, 0)
+        # Base cases
+        if not p:
+            return not s
 
-    def _isMatch(self, s: str, p: str, i: int, j: int) -> bool:
-        if j == len(p):
-            return i == len(s)
+        first_match = bool(s) and (s[0] == p[0] or p[0] == '.')
 
-        if self.cache[i][j] is not None:
-            return self.cache[i][j]
-
-        first_match = i < len(s) and (s[i] == p[j] or p[j] == '.')
-
-        if j + 1 < len(p) and p[j + 1] == '*':
-            result = (first_match and self._isMatch(s, p, i + 1, j)) or self._isMatch(s, p, i, j + 2)
+        # Handle '*' character
+        if len(p) >= 2 and p[1] == '*':
+            return (self.isMatch(s, p[2:]) or
+                    (first_match and self.isMatch(s[1:], p)))
         else:
-            result = first_match and self._isMatch(s, p, i + 1, j + 1)
+            return first_match and self.isMatch(s[1:], p[1:])
 
-        self.cache[i][j] = result
-        return result
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+s1, p1 = "aa", "a"
+print(solution.isMatch(s1, p1))  # Output: False
+
+# Example 2:
+s2, p2 = "aa", "a*"
+print(solution.isMatch(s2, p2))  # Output: True
+
+# Example 3:
+s3, p3 = "ab", ".*"
+print(solution.isMatch(s3, p3))  # Output: True
+
+# Example 4:
+s4, p4 = "aab", "c*a*b"
+print(solution.isMatch(s4, p4))  # Output: True
+
+# Example 5:
+s5, p5 = "mississippi", "mis*is*p*."
+print(solution.isMatch(s5, p5))  # Output: False
 ```
+
+This code defines a `Solution` class with a method `isMatch` that takes a string `s` and a pattern `p` as input and returns `True` if they match and `False` otherwise. The example usage demonstrates how to create an instance of the `Solution` class and call the `isMatch` method with different inputs using the recursive approach.

@@ -37,8 +37,6 @@ Given the `root` of a binary tree, flatten the tree into a "linked list":
 
 **Follow up:** Can you flatten the tree in-place (with `O(1)` extra space)?
 
-
-
 ## Solution
 
 ```cpp

@@ -30,8 +30,6 @@ Return `true` _if you can reach the last index, or_ `false` _otherwise_.
 *   <code>1 <= nums.length <= 10<sup>4</sup></code>
 *   <code>0 <= nums[i] <= 10<sup>5</sup></code>
 
-
-
 ## Solution
 
 ```cpp

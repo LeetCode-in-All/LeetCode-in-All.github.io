@@ -33,8 +33,6 @@ Write an efficient algorithm that searches for a value in an `m x n` matrix. Thi
 *   `1 <= m, n <= 100`
 *   <code>-10<sup>4</sup> <= matrix[i][j], target <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

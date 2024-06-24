@@ -44,29 +44,66 @@ You have to rotate the image [**in-place**](https://en.wikipedia.org/wiki/In-pla
 *   `1 <= n <= 20`
 *   `-1000 <= matrix[i][j] <= 1000`
 
+To solve the "Rotate Image" problem, you can perform the rotation in-place by swapping elements of the matrix. Here are the steps to solve the problem:
 
+### Approach:
 
-## Solution
+1. **Transpose the Matrix:**
+   - Transpose the matrix by swapping `matrix[i][j]` with `matrix[j][i]` for all `i` and `j` where `i < j`.
+
+2. **Reverse Each Row:**
+   - Reverse each row of the transposed matrix to get the final rotated matrix.
+
+### Python Code:
 
 ```python
 class Solution:
-    def rotate(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
+    def rotate(self, matrix):
         n = len(matrix)
-        for i in range(n // 2):
-            for j in range(i, n - i - 1):
-                positions = [
-                    [i, j],
-                    [j, n - 1 - i],
-                    [n - 1 - i, n - 1 - j],
-                    [n - 1 - j, i]
-                ]
-                t = matrix[positions[0][0]][positions[0][1]]
-                for k in range(1, len(positions)):
-                    temp = matrix[positions[k][0]][positions[k][1]]
-                    matrix[positions[k][0]][positions[k][1]] = t
-                    t = temp
-                matrix[positions[0][0]][positions[0][1]] = t
+        
+        # Transpose the matrix
+        for i in range(n):
+            for j in range(i + 1, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        # Reverse each row
+        for i in range(n):
+            matrix[i] = matrix[i][::-1]
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+matrix1 = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+]
+solution.rotate(matrix1)
+print(matrix1)  # Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+# Example 2:
+matrix2 = [
+    [5,1,9,11],
+    [2,4,8,10],
+    [13,3,6,7],
+    [15,14,12,16]
+]
+solution.rotate(matrix2)
+print(matrix2)  # Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+
+# Example 3:
+matrix3 = \[\[1]]
+solution.rotate(matrix3)
+print(matrix3)  # Output: [[1]]
+
+# Example 4:
+matrix4 = [
+    [1,2],
+    [3,4]
+]
+solution.rotate(matrix4)
+print(matrix4)  # Output: [[3,1],[4,2]]
 ```
+
+This code defines a `Solution` class with a `rotate` method to rotate the given matrix by 90 degrees clockwise. The example usage demonstrates how to create an instance of the `Solution` class and call the `rotate` method with different input matrices.

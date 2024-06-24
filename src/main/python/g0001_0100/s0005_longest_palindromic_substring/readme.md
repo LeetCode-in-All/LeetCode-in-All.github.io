@@ -36,42 +36,85 @@ Given a string `s`, return _the longest palindromic substring_ in `s`.
 *   `1 <= s.length <= 1000`
 *   `s` consist of only digits and English letters.
 
+Here are the steps to solve the "Longest Palindromic Substring" problem:
 
+### Approach:
 
-## Solution
+1. **Initialize Variables:**
+   - Initialize two pointers, `start` and `end`, to represent the current substring being considered.
+   - Initialize a variable `max_length` to store the length of the longest palindromic substring found.
+   - Initialize variables `max_start` and `max_end` to store the starting and ending indices of the longest palindromic substring.
+
+2. **Expand Around Center:**
+   - Iterate through each character in the string `s`.
+   - For each character, consider it as the center of a potential palindrome and expand around it to find the longest palindrome.
+
+3. **Handle Odd-Length Palindromes:**
+   - For each character, expand the substring by considering the current character as the center and expanding outward on both sides.
+   - Update `start` and `end` pointers accordingly.
+
+4. **Handle Even-Length Palindromes:**
+   - Consider each pair of adjacent characters as potential centers and expand around them to find even-length palindromes.
+   - Update `start` and `end` pointers accordingly.
+
+5. **Update Longest Palindrome:**
+   - After expanding around the current center, check if the length of the palindrome is greater than the current maximum (`max_length`).
+   - If yes, update `max_length`, `max_start`, and `max_end`.
+
+6. **Return Result:**
+   - After iterating through all characters, return the longest palindromic substring using the indices `max_start` and `max_end`.
+
+### Python Code:
 
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        # Create a new string with separators
-        new_str = ['#'] * (2 * len(s) + 1)
+        # Initialize variables
+        max_length = 0
+        max_start, max_end = 0, 0
+
+        # Expand around center
         for i in range(len(s)):
-            new_str[2 * i + 1] = s[i]
+            # Handle odd-length palindromes
+            start, end = self.expand_around_center(s, i, i)
+            if end - start + 1 > max_length:
+                max_length = end - start + 1
+                max_start, max_end = start, end
 
-        dp = [0] * len(new_str)
-        friend_center = 0
-        friend_radius = 0
-        lps_center = 0
-        lps_radius = 0
+            # Handle even-length palindromes
+            start, end = self.expand_around_center(s, i, i + 1)
+            if end - start + 1 > max_length:
+                max_length = end - start + 1
+                max_start, max_end = start, end
 
-        for i in range(len(new_str)):
-            if friend_center + friend_radius > i:
-                dp[i] = min(dp[2 * friend_center - i], (friend_center + friend_radius) - i)
-            else:
-                dp[i] = 1
+        # Return the longest palindromic substring
+        return s[max_start:max_end + 1]
 
-            while i + dp[i] < len(new_str) and i - dp[i] >= 0 and new_str[i + dp[i]] == new_str[i - dp[i]]:
-                dp[i] += 1
+    def expand_around_center(self, s, left, right):
+        # Expand around center and return indices of the palindrome
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
 
-            if friend_center + friend_radius < i + dp[i]:
-                friend_center = i
-                friend_radius = dp[i]
+# Example Usage:
+solution = Solution()
 
-            if lps_radius < dp[i]:
-                lps_center = i
-                lps_radius = dp[i]
+# Example 1:
+s1 = "babad"
+print(solution.longestPalindrome(s1))  # Output: "bab" or "aba"
 
-        start = (lps_center - lps_radius + 1) // 2
-        end = (lps_center + lps_radius - 1) // 2
-        return s[start:end]
+# Example 2:
+s2 = "cbbd"
+print(solution.longestPalindrome(s2))  # Output: "bb"
+
+# Example 3:
+s3 = "a"
+print(solution.longestPalindrome(s3))  # Output: "a"
+
+# Example 4:
+s4 = "ac"
+print(solution.longestPalindrome(s4))  # Output: "a"
 ```
+
+This code defines a `Solution` class with a method `longestPalindrome` that takes a string `s` as input and returns the longest palindromic substring. The example usage demonstrates how to create an instance of the `Solution` class and call the `longestPalindrome` method with different inputs.

@@ -36,22 +36,37 @@ Given the `root` of a binary tree, return _the maximum **path sum** of any **non
 *   The number of nodes in the tree is in the range <code>[1, 3 * 10<sup>4</sup>]</code>.
 *   `-1000 <= Node.val <= 1000`
 
+To solve the "Binary Tree Maximum Path Sum" problem in Python with a `Solution` class, we'll use a recursive approach. Below are the steps:
 
+1. **Create a `Solution` class**: Define a class named `Solution` to encapsulate our solution methods.
 
-## Solution
+2. **Create a `maxPathSum` method**: This method takes the root node of the binary tree as input and returns the maximum path sum.
+
+3. **Define a recursive helper method**: Define a recursive helper method `maxSumPath` to compute the maximum path sum rooted at the current node.
+   - The method should return the maximum path sum that can be obtained from the current node to any of its descendants.
+   - We'll use a post-order traversal to traverse the tree.
+   - For each node:
+     - Compute the maximum path sum for the left and right subtrees recursively.
+     - Update the maximum path sum by considering three cases:
+       1. The current node itself.
+       2. The current node plus the maximum path sum of the left subtree.
+       3. The current node plus the maximum path sum of the right subtree.
+     - Update the global maximum path sum if necessary by considering the sum of the current node, left subtree, and right subtree.
+
+4. **Initialize a variable to store the maximum path sum**: Initialize a global variable `maxSum` to store the maximum path sum.
+
+5. **Call the helper method**: Call the `maxSumPath` method with the root node.
+
+6. **Return the maximum path sum**: After traversing the entire tree, return the `maxSum`.
+
+Here's the Python implementation:
 
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def __init__(self):
         self.max_sum = float('-inf')
 
-    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    def maxPathSum(self, root: TreeNode) -> int:
         self.helper(root)
         return self.max_sum
 
@@ -67,3 +82,5 @@ class Solution:
         
         return root.val + max(left, right)
 ```
+
+This implementation follows the steps outlined above and efficiently computes the maximum path sum in a binary tree in Python.

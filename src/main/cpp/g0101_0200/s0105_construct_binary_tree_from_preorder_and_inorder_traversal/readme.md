@@ -31,8 +31,6 @@ Given two integer arrays `preorder` and `inorder` where `preorder` is the preord
 *   `preorder` is **guaranteed** to be the preorder traversal of the tree.
 *   `inorder` is **guaranteed** to be the inorder traversal of the tree.
 
-
-
 ## Solution
 
 ```cpp

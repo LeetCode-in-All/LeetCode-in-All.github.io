@@ -29,8 +29,6 @@ Given `n` non-negative integers representing an elevation map where the width of
 *   <code>1 <= n <= 2 * 10<sup>4</sup></code>
 *   <code>0 <= height[i] <= 10<sup>5</sup></code>
 
-
-
 ## Solution
 
 ```cpp

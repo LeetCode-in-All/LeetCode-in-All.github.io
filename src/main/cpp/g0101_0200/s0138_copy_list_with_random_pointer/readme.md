@@ -58,8 +58,6 @@ Your code will **only** be given the `head` of the original linked list.
 *   `-10000 <= Node.val <= 10000`
 *   `Node.random` is `null` or is pointing to some node in the linked list.
 
-
-
 ## Solution
 
 ```cpp

@@ -37,36 +37,94 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 *   `0 <= Node.val <= 9`
 *   It is guaranteed that the list represents a number that does not have leading zeros.
 
+Here are the steps to solve the "Add Two Numbers" problem:
 
+### Approach:
 
-## Solution
+1. **Initialize Pointers and Carry:**
+   - Initialize three pointers, `p1` for the first linked list (`l1`), `p2` for the second linked list (`l2`), and `dummy_head` for the dummy node of the result linked list.
+   - Initialize `carry` to 0.
+
+2. **Traverse Both Linked Lists:**
+   - Traverse both linked lists until both pointers (`p1` and `p2`) reach the end.
+
+3. **Calculate Sum and Carry:**
+   - At each step, calculate the sum of the current digits and the carry from the previous step.
+   - Update `carry` for the next iteration.
+
+4. **Create New Node:**
+   - Create a new node with the value as the sum % 10 and add it to the result linked list.
+
+5. **Move Pointers:**
+   - Move both pointers (`p1` and `p2`) to the next nodes in their respective linked lists.
+
+6. **Handle Remaining Digits:**
+   - After both linked lists are traversed, check if there is any remaining carry.
+   - If there is, create a new node with the value of the carry and add it to the result linked list.
+
+7. **Return Result:**
+   - Return the next node of `dummy_head` as the head of the result linked list.
+
+### Python Code:
 
 ```python
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy_head = ListNode(0)
-        p, q, curr = l1, l2, dummy_head
+        dummy_head = ListNode()
+        p1, p2, current = l1, l2, dummy_head
         carry = 0
-        
-        while p is not None or q is not None:
-            x = p.val if p is not None else 0
-            y = q.val if q is not None else 0
-            sum = carry + x + y
-            carry = sum // 10
-            curr.next = ListNode(sum % 10)
-            curr = curr.next
-            if p is not None:
-                p = p.next
-            if q is not None:
-                q = q.next
-        
+
+        while p1 or p2:
+            # Get values and handle None cases
+            x = p1.val if p1 else 0
+            y = p2.val if p2 else 0
+
+            # Calculate sum and carry
+            _sum = x + y + carry
+            carry = _sum // 10
+
+            # Create new node with the sum % 10
+            current.next = ListNode(_sum % 10)
+            current = current.next
+
+            # Move pointers to the next nodes
+            if p1:
+                p1 = p1.next
+            if p2:
+                p2 = p2.next
+
+        # Handle remaining carry
         if carry > 0:
-            curr.next = ListNode(carry)
-        
+            current.next = ListNode(carry)
+
         return dummy_head.next
+
+# Example Usage:
+solution = Solution()
+
+# Example 1:
+l1 = ListNode(2, ListNode(4, ListNode(3)))
+l2 = ListNode(5, ListNode(6, ListNode(4)))
+result = solution.addTwoNumbers(l1, l2)
+# Output: [7, 0, 8]
+
+# Example 2:
+l1 = ListNode(0)
+l2 = ListNode(0)
+result = solution.addTwoNumbers(l1, l2)
+# Output: [0]
+
+# Example 3:
+l1 = ListNode(9, ListNode(9, ListNode(9, ListNode(9, ListNode(9, ListNode(9, ListNode(9)))))))
+l2 = ListNode(9, ListNode(9, ListNode(9, ListNode(9))))
+result = solution.addTwoNumbers(l1, l2)
+# Output: [8, 9, 9, 9, 0, 0, 0, 1]
 ```
+
+This code defines a `ListNode` class for the singly-linked list and a `Solution` class with a method `addTwoNumbers` that takes two linked lists as input and returns the result as a linked list. The example usage demonstrates how to create instances of the `ListNode` class and call the `addTwoNumbers` method with different inputs.

@@ -36,8 +36,6 @@ Given the `head` of a linked list, remove the `nth` node from the end of the lis
 
 **Follow up:** Could you do this in one pass?
 
-
-
 ## Solution
 
 ```cpp

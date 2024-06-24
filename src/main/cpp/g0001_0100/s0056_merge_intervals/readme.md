@@ -29,8 +29,6 @@ Given an array of `intervals` where <code>intervals[i] = [start<sub>i</sub>, end
 *   `intervals[i].length == 2`
 *   <code>0 <= start<sub>i</sub> <= end<sub>i</sub> <= 10<sup>4</sup></code>
 
-
-
 ## Solution
 
 ```cpp

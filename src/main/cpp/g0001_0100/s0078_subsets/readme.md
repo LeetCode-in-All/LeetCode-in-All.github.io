@@ -27,8 +27,6 @@ The solution set **must not** contain duplicate subsets. Return the solution in 
 *   `-10 <= nums[i] <= 10`
 *   All the numbers of `nums` are **unique**.
 
-
-
 ## Solution
 
 ```cpp

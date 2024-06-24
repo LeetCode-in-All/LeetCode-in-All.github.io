@@ -38,8 +38,6 @@ You must do it [in place](https://en.wikipedia.org/wiki/In-place_algorithm).
 *   A simple improvement uses `O(m + n)` space, but still not the best solution.
 *   Could you devise a constant space solution?
 
-
-
 ## Solution
 
 ```cpp

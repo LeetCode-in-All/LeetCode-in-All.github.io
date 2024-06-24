@@ -54,8 +54,6 @@ It is **guaranteed** that the number of unique combinations that sum up to `targ
 *   All elements of `candidates` are **distinct**.
 *   `1 <= target <= 500`
 
-
-
 ## Solution
 
 ```cpp

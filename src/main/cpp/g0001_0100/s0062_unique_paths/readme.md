@@ -49,8 +49,6 @@ How many possible unique paths are there?
 *   `1 <= m, n <= 100`
 *   It's guaranteed that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.
 
-
-
 ## Solution
 
 ```cpp

@@ -34,8 +34,6 @@ You have the following three operations permitted on a word:
 *   `0 <= word1.length, word2.length <= 500`
 *   `word1` and `word2` consist of lowercase English letters.
 
-
-
 ## Solution
 
 ```cpp

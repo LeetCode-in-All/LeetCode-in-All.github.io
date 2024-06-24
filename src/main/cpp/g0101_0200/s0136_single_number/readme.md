@@ -33,8 +33,6 @@ You must implement a solution with a linear runtime complexity and use only cons
 *   <code>-3 * 10<sup>4</sup> <= nums[i] <= 3 * 10<sup>4</sup></code>
 *   Each element in the array appears twice except for one element which appears only once.
 
-
-
 ## Solution
 
 ```cpp
