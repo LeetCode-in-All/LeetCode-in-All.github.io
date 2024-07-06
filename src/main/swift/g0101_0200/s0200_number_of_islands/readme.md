@@ -45,34 +45,34 @@ An **island** is surrounded by water and is formed by connecting adjacent lands 
 ## Solution
 
 ```swift
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     public var val: Int
- *     public var next: ListNode?
- *     public init() { self.val = 0; self.next = nil; }
- *     public init(_ val: Int) { self.val = val; self.next = nil; }
- *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
- * }
- */
 class Solution {
-    func reverseList(_ head: ListNode?) -> ListNode? {
-        var prev: ListNode? = nil
-        var curr = head
-        var next = head?.next
+    func numIslands(_ grid: [[Character]]) -> Int {
+        var grid = grid
+        var islands = 0
 
-        while curr != nil {
+        if !grid.isEmpty && !grid[0].isEmpty {
+            for i in 0..<grid.count {
+                for j in 0..<grid[0].count {
+                    if grid[i][j] == "1" {
+                        dfs(&grid, i, j)
+                        islands += 1
+                    }
+                }
+            }
+        }
+        return islands
+    }
 
-            // reverse the current nodes link
-            curr?.next = prev
-            
-            // update variables
-            prev = curr
-            curr = next
-            next = next?.next
+    private func dfs(_ grid: inout [[Character]], _ x: Int, _ y: Int) {
+        if x < 0 || x >= grid.count || y < 0 || y >= grid[0].count || grid[x][y] != "1" {
+            return
         }
 
-        return prev
+        grid[x][y] = "x"
+        dfs(&grid, x + 1, y)
+        dfs(&grid, x - 1, y)
+        dfs(&grid, x, y + 1)
+        dfs(&grid, x, y - 1)
     }
 }
 ```
