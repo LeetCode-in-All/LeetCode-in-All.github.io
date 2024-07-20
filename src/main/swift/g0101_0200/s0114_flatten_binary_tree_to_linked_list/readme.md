@@ -37,79 +37,47 @@ Given the `root` of a binary tree, flatten the tree into a "linked list":
 
 **Follow up:** Can you flatten the tree in-place (with `O(1)` extra space)?
 
-To solve the "Flatten Binary Tree to Linked List" problem in Java with a `Solution` class, we'll use a recursive approach. Below are the steps:
+## Solution
 
-1. **Create a `Solution` class**: Define a class named `Solution` to encapsulate our solution methods.
-
-2. **Create a `flatten` method**: This method takes the root node of the binary tree as input and flattens the tree into a linked list using preorder traversal.
-
-3. **Check for null root**: Check if the root is null. If so, there's no tree to flatten, so return.
-
-4. **Recursively flatten the tree**: Define a recursive helper method `flattenTree` to perform the flattening.
-   - The method should take the current node as input.
-   - Perform a preorder traversal of the tree.
-   - For each node, if it has a left child:
-     - Find the rightmost node in the left subtree.
-     - Attach the right subtree of the current node to the right of the rightmost node.
-     - Move the left subtree to the right subtree position.
-     - Set the left child of the current node to null.
-   - Recursively call the method for the right child.
-
-5. **Call the helper method**: Call the `flattenTree` method with the root node.
-
-Here's the Java implementation:
-
-```java
+```swift
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
 class Solution {
-    public void flatten(TreeNode root) {
-        if (root == null) return; // Check for empty tree
-        flattenTree(root); // Flatten the tree
-    }
-    
-    // Recursive helper method to flatten the tree
-    private void flattenTree(TreeNode node) {
-        if (node == null) return;
-        
-        // Flatten left subtree
-        flattenTree(node.left);
-        
-        // Flatten right subtree
-        flattenTree(node.right);
-        
-        // Save right subtree
-        TreeNode rightSubtree = node.right;
-        
-        // Attach left subtree to the right of the current node
-        node.right = node.left;
-        
-        // Set left child to null
-        node.left = null;
-        
-        // Move to the rightmost node of the flattened left subtree
-        TreeNode current = node;
-        while (current.right != null) {
-            current = current.right;
+    func flatten(_ root: TreeNode?) {
+        var values: [Int] = []
+        getAllValues(root, &values)
+        let linkedList = TreeNode()
+        var currLink: TreeNode? = linkedList
+        for index in 0..<values.count {
+            currLink?.right = TreeNode(values[index])
+            currLink = currLink?.right
         }
-        
-        // Attach the saved right subtree to the right of the rightmost node
-        current.right = rightSubtree;
+        root?.right = linkedList.right?.right
+        root?.left = nil
     }
-    
-    // TreeNode definition
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+
+    private func getAllValues(_ curr: TreeNode?, _ values: inout [Int]) {
+        guard let curr = curr else { return }
+        values.append(curr.val)
+        if let left = curr.left {
+            getAllValues(left, &values)
+        }
+        if let right = curr.right {
+            getAllValues(right, &values)
         }
     }
 }
 ```
-
-This implementation follows the steps outlined above and efficiently flattens the binary tree into a linked list using preorder traversal in Java.
