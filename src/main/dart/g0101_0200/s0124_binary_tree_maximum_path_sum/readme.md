@@ -49,7 +49,7 @@ Given the `root` of a binary tree, return _the maximum **path sum** of any **non
  * }
  */
 class Solution {
-  int _max = -999999999; // Use a large negative value instead of -double.infinity.toInt()
+  int _max = -999999999;
 
   int _helper(TreeNode? root) {
     if (root == null) {

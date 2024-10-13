@@ -46,6 +46,8 @@ Given `n` non-negative integers <code>a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n
 ## Solution
 
 ```dart
+import 'dart:math';
+
 class Solution {
   int maxArea(List<int> height) {
     int maxArea = -1;
@@ -63,10 +65,6 @@ class Solution {
     }
 
     return maxArea;
-  }
-
-  int max(int a, int b) {
-    return (a > b) ? a : b;
   }
 }
 ```

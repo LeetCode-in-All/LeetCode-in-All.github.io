@@ -35,6 +35,8 @@ You can assume that you can always reach the last index.
 ## Solution
 
 ```dart
+import 'dart:math';
+
 class Solution {
   int jump(List<int> nums) {
     int length = 0;
@@ -57,11 +59,6 @@ class Solution {
     }
 
     return minJump;
-  }
-
-  // Dart's equivalent for Java's Math.max() is the built-in max() function
-  int max(int a, int b) {
-    return a > b ? a : b;
   }
 }
 ```

@@ -37,6 +37,8 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
 ## Solution
 
 ```dart
+import 'dart:math';
+
 class Solution {
   int maxProfit(List<int> prices) {
     int maxProfit = 0;
@@ -52,7 +54,5 @@ class Solution {
 
     return maxProfit;
   }
-
-  int max(int a, int b) => a > b ? a : b; // Utility function for max
 }
 ```
