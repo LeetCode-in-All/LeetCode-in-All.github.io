@@ -36,7 +36,7 @@ Merge two sorted linked lists and return it as a **sorted** list. The list shoul
 ## Solution
 
 ```javascript
-import { ListNode } from "../../com_github_leetcode/listnode";
+import { ListNode } from '../../com_github_leetcode/listnode';
 
 /**
  * Definition for singly-linked list.
