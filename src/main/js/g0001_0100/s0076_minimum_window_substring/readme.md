@@ -55,7 +55,6 @@ A **substring** is a contiguous sequence of characters within the string.
 var minWindow = function(s, t) {
     const map = new Array(128).fill(0)
 
-    // Populate the map with the characters of `t`
     for (let i = 0; i < t.length; i++) {
         map[t.charCodeAt(i)]++
     }
@@ -67,18 +66,15 @@ var minWindow = function(s, t) {
     let head = 0
 
     while (end < s.length) {
-        // Decrease count for characters in `s` found in `t`
         if (map[s.charCodeAt(end++)]-- > 0) {
             count--
         }
 
-        // When all characters of `t` are matched
         while (count === 0) {
             if (end - begin < d) {
                 d = end - begin
                 head = begin
             }
-            // Move the `begin` pointer and update the map
             if (map[s.charCodeAt(begin++)]++ === 0) {
                 count++
             }

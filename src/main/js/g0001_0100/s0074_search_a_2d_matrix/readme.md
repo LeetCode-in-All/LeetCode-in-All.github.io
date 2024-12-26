@@ -47,7 +47,6 @@ var searchMatrix = function(matrix, target) {
     let targetRow = 0
     let result = false
 
-    // Find the target row
     for (let i = 0; i < endRow; i++) {
         if (matrix[i][endCol - 1] >= target) {
             targetRow = i
@@ -55,7 +54,6 @@ var searchMatrix = function(matrix, target) {
         }
     }
 
-    // Search in the target row
     for (let i = 0; i < endCol; i++) {
         if (matrix[targetRow][i] === target) {
             result = true

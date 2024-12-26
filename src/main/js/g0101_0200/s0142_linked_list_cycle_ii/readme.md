@@ -76,7 +76,6 @@ var detectCycle = function(head) {
         fast = fast.next.next
         slow = slow.next
 
-        // If slow and fast pointers meet, cycle is detected.
         if (slow === fast) {
             break
         }

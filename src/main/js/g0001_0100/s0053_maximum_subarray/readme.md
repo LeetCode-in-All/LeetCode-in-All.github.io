@@ -48,11 +48,9 @@ var maxSubArray = function(nums) {
     let sum = 0
 
     for (const num of nums) {
-        // Calculate subarray sum
         sum += num
         maxi = Math.max(sum, maxi)
         if (sum < 0) {
-            // Reset sum if it's negative
             sum = 0
         }
     }

@@ -63,7 +63,6 @@ var decodeString = function(s) {
             } else if (c === ']') {
                 break
             } else if (c === '[') {
-                // Recursive call for the substring
                 const repeat = helper()
                 while (count > 0) {
                     sb += repeat

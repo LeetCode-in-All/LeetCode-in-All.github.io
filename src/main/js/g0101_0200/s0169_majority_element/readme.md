@@ -40,7 +40,6 @@ var majorityElement = function(arr) {
     let count = 1
     let majority = arr[0]
 
-    // For Potential Majority Element
     for (let i = 1; i < arr.length; i++) {
         if (arr[i] === majority) {
             count++;
@@ -51,7 +50,6 @@ var majorityElement = function(arr) {
         }
     }
 
-    // For Confirmation
     count = 0
     for (const num of arr) {
         if (num === majority) {

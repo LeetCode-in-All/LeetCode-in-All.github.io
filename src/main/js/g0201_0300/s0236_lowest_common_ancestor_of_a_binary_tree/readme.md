@@ -60,15 +60,15 @@ According to the [definition of LCA on Wikipedia](https://en.wikipedia.org/wiki/
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-    if(!root) {
+    if (!root) {
         return null
     }
-    if(p.val === root.val || q.val === root.val) {
+    if (p.val === root.val || q.val === root.val) {
         return root
     }
     const leftNode = lowestCommonAncestor(root.left, p, q)
     const rightNode = lowestCommonAncestor(root.right, p, q)
-    if(leftNode && rightNode) {
+    if (leftNode && rightNode) {
         return root
     }
     return leftNode || rightNode

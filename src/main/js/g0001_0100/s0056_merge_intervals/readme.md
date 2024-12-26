@@ -37,7 +37,6 @@ Given an array of `intervals` where <code>intervals[i] = [start<sub>i</sub>, end
  * @return {number[][]}
  */
 var merge = function(intervals) {
-    // Sort intervals based on the starting points
     intervals.sort((a, b) => a[0] - b[0])
     
     const result = []
@@ -46,10 +45,8 @@ var merge = function(intervals) {
     
     for (const next of intervals) {
         if (current[1] >= next[0]) {
-            // Merge intervals
             current[1] = Math.max(current[1], next[1])
         } else {
-            // Move to the next interval
             current = next;
             result.push(current)
         }
