@@ -43,8 +43,6 @@ You can return the answer in any order.
 ## Solution
 
 ```erlang
-﻿% #Easy #Top_100_Liked_Questions #Top_Interview_Questions #Array #Hash_Table
-
 -spec two_sum(Nums :: [integer()], Target :: integer()) -> [integer()].
 two_sum(Nums, Target) ->
     two_sum(Nums, Target, #{}, 0).
