@@ -16,21 +16,25 @@ Implement the Trie class:
 
 **Example 1:**
 
-**Input**
-
-    ["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
-    [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+**Input** ["Trie", "insert", "search", "search", "startsWith", "insert", "search"] [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
 
 **Output:** [null, null, true, false, true, null, true]
 
-**Explanation:**
+**Explanation:** 
 
-    Trie trie = new Trie();
-    trie.insert("apple"); trie.search("apple"); // return True
-    trie.search("app"); // return False
-    trie.startsWith("app"); // return True
-    trie.insert("app");
-    trie.search("app"); // return True 
+Trie trie = new Trie(); 
+
+trie.insert("apple"); 
+
+trie.search("apple"); // return True 
+
+trie.search("app"); // return False 
+
+trie.startsWith("app"); // return True 
+
+trie.insert("app"); 
+
+trie.search("app"); // return True
 
 **Constraints:**
 
@@ -98,4 +102,12 @@ class Trie {
         root = TrieNode()
     }
 }
+
+/*
+ * Your Trie object will be instantiated and called as such:
+ * var obj = Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
 ```

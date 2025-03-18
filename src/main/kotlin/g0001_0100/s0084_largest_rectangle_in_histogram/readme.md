@@ -15,7 +15,9 @@ Given an array of integers `heights` representing the histogram's bar height whe
 
 **Output:** 10
 
-**Explanation:** The above is a histogram where width of each bar is 1. The largest rectangle is shown in the red area, which has an area = 10 units. 
+**Explanation:** The above is a histogram where width of each bar is 1. 
+
+The largest rectangle is shown in the red area, which has an area = 10 units.
 
 **Example 2:**
 
@@ -23,7 +25,7 @@ Given an array of integers `heights` representing the histogram's bar height whe
 
 **Input:** heights = [2,4]
 
-**Output:** 4 
+**Output:** 4
 
 **Constraints:**
 
@@ -68,7 +70,7 @@ class Solution {
             maxOfThreeNums(
                 largestArea(a, start, minInd),
                 a[minInd] * (limit - start),
-                largestArea(a, minInd + 1, limit)
+                largestArea(a, minInd + 1, limit),
             )
         }
     }

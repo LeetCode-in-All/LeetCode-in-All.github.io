@@ -15,19 +15,19 @@ A mapping of digit to letters (just like on the telephone buttons) is given belo
 
 **Input:** digits = "23"
 
-**Output:** ["ad","ae","af","bd","be","bf","cd","ce","cf"] 
+**Output:** ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 
 **Example 2:**
 
 **Input:** digits = ""
 
-**Output:** [] 
+**Output:** []
 
 **Example 3:**
 
 **Input:** digits = "2"
 
-**Output:** ["a","b","c"] 
+**Output:** ["a","b","c"]
 
 **Constraints:**
 
@@ -52,7 +52,7 @@ class Solution {
         nums: String,
         letters: Array<String>,
         curr: StringBuilder,
-        ans: MutableList<String>
+        ans: MutableList<String>,
     ) {
         if (curr.length == nums.length) {
             ans.add(curr.toString())

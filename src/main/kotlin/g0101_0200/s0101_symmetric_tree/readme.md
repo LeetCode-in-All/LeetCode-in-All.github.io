@@ -13,7 +13,7 @@ Given the `root` of a binary tree, _check whether it is a mirror of itself_ (i.e
 
 **Input:** root = [1,2,2,3,4,4,3]
 
-**Output:** true 
+**Output:** true
 
 **Example 2:**
 
@@ -21,7 +21,7 @@ Given the `root` of a binary tree, _check whether it is a mirror of itself_ (i.e
 
 **Input:** root = [1,2,2,null,3,null,3]
 
-**Output:** false 
+**Output:** false
 
 **Constraints:**
 
@@ -49,7 +49,9 @@ class Solution {
     fun isSymmetric(root: TreeNode?): Boolean {
         return if (root == null) {
             true
-        } else helper(root.left, root.right)
+        } else {
+            helper(root.left, root.right)
+        }
     }
 
     private fun helper(leftNode: TreeNode?, rightNode: TreeNode?): Boolean {
@@ -58,7 +60,9 @@ class Solution {
         }
         return if (leftNode.`val` != rightNode.`val`) {
             false
-        } else helper(leftNode.left, rightNode.right) && helper(leftNode.right, rightNode.left)
+        } else {
+            helper(leftNode.left, rightNode.right) && helper(leftNode.right, rightNode.left)
+        }
     }
 }
 ```

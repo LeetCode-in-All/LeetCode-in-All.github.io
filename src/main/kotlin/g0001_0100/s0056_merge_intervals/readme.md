@@ -13,7 +13,7 @@ Given an array of `intervals` where <code>intervals[i] = [start<sub>i</sub>, end
 
 **Output:** [[1,6],[8,10],[15,18]]
 
-**Explanation:** Since intervals [1,3] and [2,6] overlaps, merge them into [1,6]. 
+**Explanation:** Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
 
 **Example 2:**
 
@@ -21,7 +21,7 @@ Given an array of `intervals` where <code>intervals[i] = [start<sub>i</sub>, end
 
 **Output:** [[1,5]]
 
-**Explanation:** Intervals [1,4] and [4,5] are considered overlapping. 
+**Explanation:** Intervals [1,4] and [4,5] are considered overlapping.
 
 **Constraints:**
 

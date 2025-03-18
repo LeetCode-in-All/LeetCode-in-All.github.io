@@ -105,4 +105,9 @@ lRUCache.get(4); // return 4
                 (set! head new-node)
                 (unless tail (set! tail new-node))
                 (hash-set! cache key new-node))))))))
+
+;; Your lru-cache% object will be instantiated and called as such:
+;; (define obj (new lru-cache% [capacity capacity]))
+;; (define param_1 (send obj get key))
+;; (send obj put key value)
 ```

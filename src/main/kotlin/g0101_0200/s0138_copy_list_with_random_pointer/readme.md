@@ -26,7 +26,7 @@ Your code will **only** be given the `head` of the original linked list.
 
 **Input:** head = \[\[7,null],[13,0],[11,4],[10,2],[1,0]]
 
-**Output:** [[7,null],[13,0],[11,4],[10,2],[1,0]] 
+**Output:** [[7,null],[13,0],[11,4],[10,2],[1,0]]
 
 **Example 2:**
 
@@ -34,7 +34,7 @@ Your code will **only** be given the `head` of the original linked list.
 
 **Input:** head = \[\[1,1],[2,1]]
 
-**Output:** [[1,1],[2,1]] 
+**Output:** [[1,1],[2,1]]
 
 **Example 3:**
 
@@ -42,20 +42,12 @@ Your code will **only** be given the `head` of the original linked list.
 
 **Input:** head = \[\[3,null],[3,0],[3,null]]
 
-**Output:** [[3,null],[3,0],[3,null]] 
-
-**Example 4:**
-
-**Input:** head = []
-
-**Output:** []
-
-**Explanation:** The given linked list is empty (null pointer), so return null. 
+**Output:** [[3,null],[3,0],[3,null]]
 
 **Constraints:**
 
 *   `0 <= n <= 1000`
-*   `-10000 <= Node.val <= 10000`
+*   <code>-10<sup>4</sup> <= Node.val <= 10<sup>4</sup></code>
 *   `Node.random` is `null` or is pointing to some node in the linked list.
 
 ## Solution
