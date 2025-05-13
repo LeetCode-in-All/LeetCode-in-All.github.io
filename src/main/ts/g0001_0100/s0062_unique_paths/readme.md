@@ -53,16 +53,15 @@ How many possible unique paths are there?
 
 ```typescript
 function uniquePaths(m: number, n: number): number {
-    const factorialize = (x: number) => {
-        if (x <= 1) return 1
-        let res = x
-        while (x > 1) {
-            x--
-            res *= x
+    let aboveRow = Array(n).fill(1)
+    for (let row = 1; row < m; row++) {
+        let currentRow = Array(n).fill(1)
+        for (let col = 1; col < n; col++) {
+            currentRow[col] = currentRow[col - 1] + aboveRow[col]
         }
-        return res
+        aboveRow = currentRow
     }
-    return factorialize(m + n - 2) / factorialize(m - 1) / factorialize(n - 1)
+    return aboveRow[n - 1]
 }
 
 export { uniquePaths }

@@ -30,8 +30,17 @@ Note that it is the <code>k<sup>th</sup></code> largest element in the sorted or
 
 ```typescript
 function findKthLargest(nums: number[], k: number): number {
-    nums.sort((prev, next) => next - prev)
-    return nums[k - 1]
+    const countingLen = 2e4 + 1
+    const counting = new Int32Array(countingLen)
+    for (const num of nums) {
+        counting[num + 1e4]++;
+    }
+    for (let i = countingLen - 1; i >= 0; i--) {
+        k -= counting[i]
+        if (k <= 0) {
+            return i - 1e4
+        }
+    }
 }
 
 export { findKthLargest }

@@ -32,16 +32,19 @@ You must write an algorithm that runs in `O(n)` time.
 
 ```typescript
 function longestConsecutive(nums: number[]): number {
-    const set = new Set(nums)
-    let max = 0
-    for (const num of nums) {
-        if (set.has(num + 1)) continue
-        let counter = 1,
-            current = num
-        while (set.has(--current)) counter++
-        max = Math.max(counter, max)
+    let sset = new Set(nums)
+    let maxLen = 0
+    for (let num of sset) {
+        // check its start of the sequence
+        if (!sset.has(num-1)) {
+            let len = 0;
+            while (sset.has(num+len)) {
+                len += 1
+            }
+            maxLen = Math.max(maxLen, len)
+        }
     }
-    return max
+    return maxLen
 }
 
 export { longestConsecutive }
