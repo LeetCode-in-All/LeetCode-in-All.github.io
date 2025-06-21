@@ -50,15 +50,14 @@ The replacement must be **[in place](http://en.wikipedia.org/wiki/In-place_algor
  */
 function nextPermutation(nums: number[]): void {
     let swapperIndex: number | null = null
-
     for (let ind = nums.length - 1; ind >= 0 && swapperIndex == null; ind--) {
         if (nums[ind] > nums[ind - 1]) {
             swapperIndex = ind - 1
         }
     }
-
-    if (swapperIndex == null) nums.sort((a, b) => a - b)
-    else {
+    if (swapperIndex == null) {
+        nums.sort((a, b) => a - b)
+    } else {
         nums.splice(swapperIndex + 1, nums.length, ...nums.slice(swapperIndex + 1, nums.length).sort((a, b) => a - b))
         let indToBringForward = swapperIndex + 1
         while (nums[indToBringForward] <= nums[swapperIndex]) ++indToBringForward

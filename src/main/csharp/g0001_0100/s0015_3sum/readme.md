@@ -40,14 +40,11 @@ public class Solution {
         Array.Sort(nums);
         int len = nums.Length;
         IList<IList<int>> result = new List<IList<int>>();
-
         for (int i = 0; i < len - 2; i++) {
             int l = i + 1;
             int r = len - 1;
-
             while (r > l) {
                 int sum = nums[i] + nums[l] + nums[r];
-
                 if (sum < 0) {
                     l++;
                 } else if (sum > 0) {
@@ -55,25 +52,20 @@ public class Solution {
                 } else {
                     IList<int> list = new List<int> { nums[i], nums[l], nums[r] };
                     result.Add(list);
-
                     while (l < r && nums[l + 1] == nums[l]) {
                         l++;
                     }
-
                     while (r > l && nums[r - 1] == nums[r]) {
                         r--;
                     }
-
                     l++;
                     r--;
                 }
             }
-
             while (i < len - 1 && nums[i + 1] == nums[i]) {
                 i++;
             }
         }
-
         return result;
     }
 }

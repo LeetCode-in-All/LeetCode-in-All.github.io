@@ -41,7 +41,7 @@ Given the `root` of a binary tree, return _the maximum **path sum** of any **non
 ```typescript
 import { TreeNode } from '../../com_github_leetcode/treenode'
 
-/*
+/**
  * Definition for a binary tree node.
  * class TreeNode {
  *     val: number

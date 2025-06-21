@@ -60,7 +60,6 @@ It is **guaranteed** that the number of unique combinations that sum up to `targ
 function combinationSum(candidates: number[], target: number): number[][] {
     const result: number[][] = []
     const path: number[] = []
-
     const comFunct = (index: number, sum: number) => {
         if (sum === target) {
             result.push([...path])

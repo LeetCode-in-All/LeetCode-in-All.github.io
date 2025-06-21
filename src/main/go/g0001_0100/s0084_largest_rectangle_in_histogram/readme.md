@@ -37,7 +37,6 @@ The largest rectangle is shown in the red area, which has an area = 10 units.
 ```golang
 import "math"
 
-
 func largestRectangleArea(heights []int) int {
 	return largestArea(heights, 0, len(heights))
 }

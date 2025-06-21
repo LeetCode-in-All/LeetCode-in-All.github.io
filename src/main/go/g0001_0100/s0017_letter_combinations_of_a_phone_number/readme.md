@@ -53,7 +53,6 @@ func findCombinations(start int, nums string, letters []string, curr *string, an
 		*ans = append(*ans, *curr)
 		return
 	}
-
 	for i := start; i < len(nums); i++ {
 		n := int(nums[i] - '0')
 		for j := 0; j < len(letters[n]); j++ {

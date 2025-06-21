@@ -68,7 +68,6 @@ public class Solution {
         }
         RemoveNth(node.next);
         this.n--;
-
         if (this.n == 0) {
             node.next = node.next.next;
         }

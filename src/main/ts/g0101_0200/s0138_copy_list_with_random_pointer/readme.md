@@ -63,7 +63,7 @@ Your code will **only** be given the `head` of the original linked list.
 ```typescript
 import { Node } from '../../com_github_leetcode/node'
 
-/*
+/**
  * Definition for Node.
  * class Node {
  *     val: number

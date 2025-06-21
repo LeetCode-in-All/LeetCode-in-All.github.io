@@ -50,7 +50,6 @@ type ListNode struct {
  */
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	var sortedListNode, tail *ListNode = &ListNode{}, &ListNode{}
-
 	// Start sortedListNode and tail node at the same position
 	tail = sortedListNode
 	for list1 != nil && list2 != nil {
@@ -64,15 +63,12 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		// Progress the tail further
 		tail = tail.Next
 	}
-
 	if list1 != nil {
 		tail.Next = list1
 	}
-
 	if list2 != nil {
 		tail.Next = list2
 	}
-
 	return sortedListNode.Next
 }
 ```

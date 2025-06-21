@@ -5,9 +5,9 @@
 
 Hard
 
-Given an unsorted integer array `nums`, return the smallest missing positive integer.
+Given an unsorted integer array `nums`. Return the _smallest positive integer_ that is _not present_ in `nums`.
 
-You must implement an algorithm that runs in `O(n)` time and uses constant extra space.
+You must implement an algorithm that runs in `O(n)` time and uses `O(1)` auxiliary space.
 
 **Example 1:**
 
@@ -15,7 +15,7 @@ You must implement an algorithm that runs in `O(n)` time and uses constant extra
 
 **Output:** 3
 
-**Explanation:** The numbers in the range [1,2] are all in the array.
+**Explanation:** The numbers in the range [1,2] are all in the array. 
 
 **Example 2:**
 
@@ -23,7 +23,7 @@ You must implement an algorithm that runs in `O(n)` time and uses constant extra
 
 **Output:** 2
 
-**Explanation:** 1 is in the array but 2 is missing.
+**Explanation:** 1 is in the array but 2 is missing. 
 
 **Example 3:**
 
@@ -31,7 +31,7 @@ You must implement an algorithm that runs in `O(n)` time and uses constant extra
 
 **Output:** 1
 
-**Explanation:** The smallest positive integer 1 is missing.
+**Explanation:** The smallest positive integer 1 is missing. 
 
 **Constraints:**
 
@@ -47,7 +47,6 @@ func firstMissingPositive(nums []int) int {
 			nums[i] = 0
 		}
 	}
-
 	for i := 0; i < len(nums); i++ {
 		val := abs(nums[i])
 		if val > 0 && val <= len(nums) {
@@ -55,19 +54,16 @@ func firstMissingPositive(nums []int) int {
 				nums[val-1] = nums[val-1] * -1
 				continue
 			}
-
 			if nums[val-1] == 0 {
 				nums[val-1] = -1 * (len(nums) + 1)
 			}
 		}
 	}
-
 	for i := 1; i <= len(nums); i++ {
 		if nums[i-1] >= 0 {
 			return i
 		}
 	}
-
 	return len(nums) + 1
 }
 
@@ -75,7 +71,6 @@ func abs(n int) int {
 	if n >= 0 {
 		return n
 	}
-
 	return n * -1
 }
 ```

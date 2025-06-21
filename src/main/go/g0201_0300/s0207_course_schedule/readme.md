@@ -38,35 +38,44 @@ Return `true` if you can finish all courses. Otherwise, return `false`.
 ## Solution
 
 ```golang
+type State int
+
+const (
+	Unvisited State = iota
+	Visiting
+	Visited
+)
+
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	graph := map[int][]int{}
-	for _, edge := range prerequisites {
-		graph[edge[1]] = append(graph[edge[1]], edge[0])
-	}
-	indegree := make([]int, numCourses)
-	queue := []int{}
-	for i := 0; i < numCourses; i++ {
-		for _, v := range graph[i] {
-			indegree[v]++
-		}
+	visited := make([]State, numCourses)
+	graph := make([][]int, numCourses)
+	for _, dep := range prerequisites {
+		graph[dep[1]] = append(graph[dep[1]], dep[0])
 	}
 	for i := 0; i < numCourses; i++ {
-		if indegree[i] == 0 {
-			queue = append(queue, i)
-		}
-	}
-	visited := 0
-	for len(queue) > 0 {
-		node := queue[0]
-		queue = queue[1:]
-		visited++
-		for _, v := range graph[node] {
-			indegree[v]--
-			if indegree[v] == 0 {
-				queue = append(queue, v)
+		if visited[i] == Unvisited {
+			if !dfs(i, visited, graph) {
+				return false
 			}
 		}
 	}
-	return visited == numCourses
+	return true
+}
+
+func dfs(start int, visited []State, graph [][]int) bool {
+	if visited[start] == Visiting {
+		return false
+	}
+	if visited[start] == Visited {
+		return true
+	}
+	visited[start] = Visiting
+	for _, next := range graph[start] {
+		if !dfs(next, visited, graph) {
+			return false
+		}
+	}
+	visited[start] = Visited
+	return true
 }
 ```

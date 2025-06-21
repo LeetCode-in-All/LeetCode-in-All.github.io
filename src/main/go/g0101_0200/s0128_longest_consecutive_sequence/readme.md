@@ -33,7 +33,6 @@ You must write an algorithm that runs in `O(n)` time.
 ```golang
 import "sort"
 
-
 func longestConsecutive(nums []int) int {
 	if len(nums) == 0 {
 		return 0

@@ -37,7 +37,7 @@ Given the `root` of a binary tree, return _the level order traversal of its node
 ```typescript
 import { TreeNode } from '../../com_github_leetcode/treenode'
 
-/*
+/**
  * Definition for a binary tree node.
  * class TreeNode {
  *     val: number
@@ -51,7 +51,9 @@ import { TreeNode } from '../../com_github_leetcode/treenode'
  * }
  */
 function levelOrder(root: TreeNode | null): number[][] {
-    if (root == null) return []
+    if (root == null) {
+        return []
+    }
     let queue = [root]
     let result = []
     while (queue.length != 0) {
@@ -60,8 +62,12 @@ function levelOrder(root: TreeNode | null): number[][] {
         while (length > 0) {
             let node = queue.shift()
             subResult.push(node.val)
-            if (node.left != null) queue.push(node.left)
-            if (node.right != null) queue.push(node.right)
+            if (node.left != null) {
+                queue.push(node.left)
+            }
+            if (node.right != null) {
+                queue.push(node.right)
+            }
             length--
         }
         result.push(subResult)

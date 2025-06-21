@@ -46,7 +46,7 @@ According to the [definition of LCA on Wikipedia](https://en.wikipedia.org/wiki/
 ## Solution
 
 ```typescript
-/*
+/**
  * Definition for a binary tree node.
  * class TreeNode {
  *     val: number

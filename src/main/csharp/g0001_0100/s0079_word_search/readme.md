@@ -68,7 +68,6 @@ public class Solution {
         char currChar = board[r][c];
         board[r][c] = '!';
         char nextChar = word[count];
-
         if (r > 0 && board[r - 1][c] == nextChar) {
             if (helper(r - 1, c, board, word, count + 1)) return true;
         }

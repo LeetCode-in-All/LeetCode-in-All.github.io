@@ -32,21 +32,28 @@ Given a **non-empty** array `nums` containing **only positive integers**, find i
 
 ```golang
 func canPartition(nums []int) bool {
-	sums := 0
-	for _, num := range nums {
-		sums += num
+	sum := 0
+	for _, v := range nums {
+		sum += v
 	}
-	if sums%2 == 1 {
+	if sum%2 == 1 {
 		return false
 	}
-	sums /= 2
-	dp := make([]bool, sums+1)
+	sum = sum / 2
+	dp := make([]bool, sum, sum)
 	dp[0] = true
-	for _, num := range nums {
-		for sum := sums; sum >= num; sum-- {
-			dp[sum] = dp[sum] || dp[sum-num]
+	for _, n := range nums {
+		if n <= sum {
+			if dp[sum-n] == true {
+				return true
+			}
+			for j := sum - n - 1; j >= 0; j-- {
+				if dp[j] == true {
+					dp[j+n] = true
+				}
+			}
 		}
 	}
-	return dp[sums]
+	return false
 }
 ```

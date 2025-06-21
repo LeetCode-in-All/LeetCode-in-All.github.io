@@ -33,7 +33,7 @@ Given the `head` of a singly linked list, return `true` if it is a palindrome.
 ## Solution
 
 ```typescript
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number

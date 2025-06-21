@@ -42,7 +42,7 @@ Given the `root` of a binary tree, flatten the tree into a "linked list":
 ```typescript
 import { TreeNode } from '../../com_github_leetcode/treenode'
 
-/*
+/**
  * Definition for a binary tree node.
  * class TreeNode {
  *     val: number

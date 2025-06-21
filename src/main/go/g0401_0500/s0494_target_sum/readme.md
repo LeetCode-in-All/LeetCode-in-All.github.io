@@ -55,17 +55,14 @@ func findTargetSumWays(nums []int, s int) int {
 	for _, num := range nums {
 		sum += num
 	}
-
 	if s > sum || (sum+s)%2 != 0 {
 		return 0
 	}
-
 	dp := make([][]int, (sum+s)/2+1)
 	for i := range dp {
 		dp[i] = make([]int, len(nums)+1)
 	}
 	dp[0][0] = 1
-
 	for i := 0; i < len(nums); i++ {
 		if nums[i] == 0 {
 			dp[0][i+1] = dp[0][i] * 2
@@ -73,7 +70,6 @@ func findTargetSumWays(nums []int, s int) int {
 			dp[0][i+1] = dp[0][i]
 		}
 	}
-
 	for i := 1; i < len(dp); i++ {
 		for j := 0; j < len(nums); j++ {
 			dp[i][j+1] += dp[i][j]
@@ -82,7 +78,6 @@ func findTargetSumWays(nums []int, s int) int {
 			}
 		}
 	}
-
 	return dp[(sum+s)/2][len(nums)]
 }
 ```

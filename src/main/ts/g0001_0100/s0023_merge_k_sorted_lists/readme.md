@@ -43,7 +43,7 @@ _Merge all the linked-lists into one sorted linked-list and return it._
 ```typescript
 import { ListNode } from '../../com_github_leetcode/listnode'
 
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number

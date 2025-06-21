@@ -56,7 +56,6 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	dummyHead := &ListNode{}
 	p, q, curr := l1, l2, dummyHead
 	carry := 0
-
 	for p != nil || q != nil {
 		x, y := 0, 0
 		if p != nil {
@@ -67,17 +66,14 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			y = q.Val
 			q = q.Next
 		}
-
 		sum := carry + x + y
 		carry = sum / 10
 		curr.Next = &ListNode{Val: sum % 10}
 		curr = curr.Next
 	}
-
 	if carry > 0 {
 		curr.Next = &ListNode{Val: carry}
 	}
-
 	return dummyHead.Next
 }
 ```

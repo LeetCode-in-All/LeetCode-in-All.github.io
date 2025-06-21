@@ -37,7 +37,6 @@ func generate(s string, start, close, n int, result *[]string) {
 		*result = append(*result, s)
 		return
 	}
-
 	if start < n {
 		generate(s+"(", start+1, close, n, result)
 	}

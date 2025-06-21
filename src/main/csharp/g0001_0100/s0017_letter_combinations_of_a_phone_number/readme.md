@@ -45,25 +45,25 @@ public class Solution {
             return new List<string>();
         }
         string[] letters = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        IList<string> ans = new List<string>();
+        List<string> ans = new List<string>();
         StringBuilder sb = new StringBuilder();
         FindCombinations(0, digits, letters, sb, ans);
         return ans;
     }
 
     private void FindCombinations(
-            int start, string nums, string[] letters, StringBuilder curr, IList<string> ans) {
+            int start, string nums, string[] letters, StringBuilder curr, List<string> ans) {
         if (curr.Length == nums.Length) {
             ans.Add(curr.ToString());
             return;
         }
         for (int i = start; i < nums.Length; i++) {
-            int n = int.Parse(nums[i].ToString());
+            int n = nums[i] - '0'; // Convert char to int
             for (int j = 0; j < letters[n].Length; j++) {
                 char ch = letters[n][j];
                 curr.Append(ch);
                 FindCombinations(i + 1, nums, letters, curr, ans);
-                curr.Length--; // Equivalent to deleting the last character in StringBuilder
+                curr.Remove(curr.Length - 1, 1); // Remove last character
             }
         }
     }

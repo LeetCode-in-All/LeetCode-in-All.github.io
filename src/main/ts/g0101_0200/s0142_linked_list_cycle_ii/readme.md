@@ -54,7 +54,7 @@ There is a cycle in a linked list if there is some node in the list that can be 
 ```typescript
 import { ListNode } from '../../com_github_leetcode/listnode'
 
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number
@@ -68,7 +68,9 @@ import { ListNode } from '../../com_github_leetcode/listnode'
 function detectCycle(head: ListNode | null): ListNode | null {
     const set = new Set<ListNode>()
     while (head) {
-        if (set.has(head)) return head
+        if (set.has(head)) {
+            return head
+        }
         set.add(head)
         head = head.next
     }

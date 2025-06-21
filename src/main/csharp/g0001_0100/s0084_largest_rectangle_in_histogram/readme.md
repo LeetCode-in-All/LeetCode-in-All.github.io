@@ -35,20 +35,16 @@ Given an array of integers `heights` representing the histogram's bar height whe
 ```csharp
 public class Solution {
     public int LargestRectangleArea(int[] heights) {
-        int maxArea = 0, i = 0;
+        int len = heights.Length;
+        int maxArea = 0;
         Stack<int> stack = new Stack<int>();
-        while (i <= heights.Length) {
-            var currHeight = i == heights.Length ? 0 : heights[i];
-            if (!stack.Any() || currHeight >= heights[stack.Peek()]) {
-                stack.Push(i);
-                i++;
-            }
-            else {
-                int index = stack.Pop();
-                int height = heights[index];
-                int width = (!stack.Any()) ? i : (i - 1) - stack.Peek();
+        for (int i = 0; i <= len; i++) {
+            while (stack.Count > 0 && (i == len || heights[stack.Peek()] >= (i < len ? heights[i] : 0))) {
+                int height = heights[stack.Pop()];
+                int width = stack.Count == 0 ? i : i - stack.Peek() - 1;
                 maxArea = Math.Max(maxArea, height * width);
             }
+            stack.Push(i);
         }
         return maxArea;
     }

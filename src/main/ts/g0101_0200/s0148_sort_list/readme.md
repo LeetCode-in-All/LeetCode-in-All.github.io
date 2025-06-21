@@ -41,7 +41,7 @@ Given the `head` of a linked list, return _the list after sorting it in **ascend
 ```typescript
 import { ListNode } from '../../com_github_leetcode/listnode'
 
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number
@@ -54,7 +54,9 @@ import { ListNode } from '../../com_github_leetcode/listnode'
  */
 
 function sortList(head: ListNode | null): ListNode | null {
-    if (!head) return null
+    if (!head) {
+        return null
+    }
     let array = []
     while (head) {
         array.push([head, head.val])

@@ -41,7 +41,7 @@ Given the `head` of a singly linked list, reverse the list, and return _the reve
 ```typescript
 import { ListNode } from '../../com_github_leetcode/listnode'
 
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number

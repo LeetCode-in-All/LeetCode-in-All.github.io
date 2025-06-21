@@ -36,24 +36,38 @@ Given an integer array `nums` representing the amount of money of each house, re
 *   `1 <= nums.length <= 100`
 *   `0 <= nums[i] <= 400`
 
-## Solution
+To solve the House Robber problem, we can utilize dynamic programming to find the maximum amount of money we can rob without alerting the police. Here's how we can approach this problem:
+
+1. **Initialize Variables**:
+   - Initialize two variables, `prev_max` and `curr_max`, to keep track of the maximum amount of money robbed from previous houses and the current house, respectively.
+
+2. **Iterate Through Houses**:
+   - Iterate through the array of house values `nums`.
+   
+3. **Calculate Maximum Amount of Money Robbed**:
+   - For each house, update `curr_max` to the maximum value between the sum of the value of the current house and `prev_max`, and `prev_max`.
+   
+4. **Return Result**:
+   - After iterating through all houses, return `curr_max`, which represents the maximum amount of money that can be robbed without alerting the police.
+
+Let's implement this approach:
 
 ```python
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) == 0:
+        if not nums:
             return 0
         if len(nums) == 1:
             return nums[0]
-        if len(nums) == 2:
-            return max(nums[0], nums[1])
         
-        profit = [0] * len(nums)
-        profit[0] = nums[0]
-        profit[1] = max(nums[1], nums[0])
+        prev_max = curr_max = 0
         
-        for i in range(2, len(nums)):
-            profit[i] = max(profit[i - 1], nums[i] + profit[i - 2])
+        for num in nums:
+            temp = curr_max
+            curr_max = max(prev_max + num, curr_max)
+            prev_max = temp
         
-        return profit[len(nums) - 1]
+        return curr_max
 ```
+
+This solution ensures that we calculate the maximum amount of money that can be robbed without alerting the police in linear time complexity O(n) and constant space complexity O(1), meeting the problem constraints.

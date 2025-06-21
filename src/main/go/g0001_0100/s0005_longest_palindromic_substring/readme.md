@@ -39,7 +39,6 @@ func longestPalindrome(s string) string {
 	dp := make([]int, len(newStr))
 	friendCenter, friendRadius := 0, 0
 	lpsCenter, lpsRadius := 0, 0
-
 	for i := 0; i < len(newStr); i++ {
 		if friendCenter+friendRadius > i {
 			dp[i] = min(dp[2*friendCenter-i], (friendCenter+friendRadius)-i)

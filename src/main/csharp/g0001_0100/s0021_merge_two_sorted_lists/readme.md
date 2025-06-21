@@ -53,7 +53,6 @@ public class Solution {
     public ListNode MergeTwoLists(ListNode l1, ListNode l2) {
         ListNode list = new ListNode(-1);
         ListNode head = list;
-
         while (l1 != null || l2 != null) {
             if (l1 != null && l2 != null) {
                 if (l1.val <= l2.val) {
@@ -72,7 +71,6 @@ public class Solution {
             }
             list = list.next;
         }
-
         return head.next;
     }
 }

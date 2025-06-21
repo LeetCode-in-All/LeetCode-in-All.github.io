@@ -33,25 +33,29 @@ You must write an algorithm that runs in `O(n)` time.
 ```csharp
 public class Solution {
     public int LongestConsecutive(int[] nums) {
-        if (nums.Length == 0) {
-            return 0;
-        }
-        Array.Sort(nums);
-        int max = int.MinValue;
-        int thsMax = 1;
-        for (int i = 0; i < nums.Length - 1; i++) {
-            if (nums[i + 1] == nums[i] + 1) {
-                thsMax += 1;
+        Dictionary<int, int> mapToHighest = new(nums.Length);
+        int best = 0;
+        for (int i = 0; i < nums.Length; i++) {
+            int rangeLow = 0;
+            int rangeHigh = 0;
+            if (mapToHighest.ContainsKey(nums[i])) {
                 continue;
             }
-            if (nums[i + 1] == nums[i]) {
-                continue;
+            if (mapToHighest.TryGetValue(nums[i]-1, out var downCount)) {
+                rangeLow = downCount;
             }
-            // Start of a new Sequene
-            max = Math.Max(max, thsMax);
-            thsMax = 1;
+            if (mapToHighest.TryGetValue(nums[i]+1, out var upCount)) {
+                rangeHigh = upCount;
+            }
+            int thisSum = rangeLow + rangeHigh + 1;
+            mapToHighest[nums[i] - rangeLow] = thisSum;
+            mapToHighest[nums[i] + rangeHigh] = thisSum;
+            if (rangeLow != 0 && rangeHigh != 0) {
+                mapToHighest[nums[i]] = 1;
+            }
+            best = Math.Max(thisSum, best);
         }
-        return Math.Max(max, thsMax);
+        return best;
     }
 }
 ```

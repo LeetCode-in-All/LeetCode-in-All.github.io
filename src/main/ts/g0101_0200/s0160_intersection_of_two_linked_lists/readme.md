@@ -75,7 +75,7 @@ The judge will then create the linked structure based on these inputs and pass t
 ```typescript
 import { ListNode } from '../../com_github_leetcode/listnode'
 
-/*
+/**
  * Definition for singly-linked list.
  * class ListNode {
  *     val: number

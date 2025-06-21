@@ -34,7 +34,7 @@ Given the `root` of a binary search tree, and an integer `k`, return _the_ <code
 ## Solution
 
 ```typescript
-/*
+/**
  * Definition for a binary tree node.
  * class TreeNode {
  *     val: number

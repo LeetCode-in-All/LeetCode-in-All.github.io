@@ -39,8 +39,6 @@ Given the `head` of a linked list, return _the list after sorting it in **ascend
 ## Solution
 
 ```golang
-import "slices"
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -54,22 +52,46 @@ type ListNode struct {
  * }
  */
 func sortList(head *ListNode) *ListNode {
-	curr := head
-	a := []*ListNode{}
-	for curr != nil {
-		a = append(a, curr)
-		curr = curr.Next
+	if head == nil || head.Next == nil {
+		return head
 	}
-	slices.SortFunc(a, func(l1, l2 *ListNode) int {
-		return l1.Val - l2.Val
-	})
-	newNode := &ListNode{}
-	curr = newNode
-	for _, node := range a {
-		curr.Next = node
-		curr = node
+	mid := findMid(head)
+	left := sortList(head)
+	right := sortList(mid)
+	return merge(left, right)
+}
+
+func findMid(head *ListNode) *ListNode {
+	var prev *ListNode
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		prev = slow
+		slow = slow.Next
+		fast = fast.Next.Next
 	}
-	curr.Next = nil
-	return newNode.Next
+	prev.Next = nil
+	return slow
+}
+
+func merge(left, right *ListNode) *ListNode {
+	pointer := new(ListNode)
+	res := pointer
+	for left != nil && right != nil {
+		if left.Val < right.Val {
+			pointer.Next = left
+			left = left.Next
+		} else {
+			pointer.Next = right
+			right = right.Next
+		}
+		pointer = pointer.Next
+	}
+	if left != nil {
+		pointer.Next = left
+	}
+	if right != nil {
+		pointer.Next = right
+	}
+	return res.Next
 }
 ```
