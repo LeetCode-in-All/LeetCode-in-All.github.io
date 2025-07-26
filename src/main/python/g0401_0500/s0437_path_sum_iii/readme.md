@@ -41,25 +41,21 @@ The path does not need to start or end at the root or a leaf, but it must go dow
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.count = 0
-
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        if root is None:
-            return 0
-        self.helper(root, targetSum, 0)
-        self.pathSum(root.left, targetSum)
-        self.pathSum(root.right, targetSum)
-        return self.count
+        def dfs(node: TreeNode, targetSum: int, curr_sum: int) -> None:
+            if not node:
+                return
 
-    def helper(self, node: TreeNode, targetSum: int, currSum: int) -> None:
-        if node is None:
-            return
-        currSum += node.val
-        if targetSum == currSum:
-            self.count += 1
-        if node.left is not None:
-            self.helper(node.left, targetSum, currSum)
-        if node.right is not None:
-            self.helper(node.right, targetSum, currSum)
+            curr_sum += node.val
+            self.count += self.prefix_sum.get(curr_sum - targetSum, 0)
+            self.prefix_sum[curr_sum] = self.prefix_sum.get(curr_sum, 0) + 1
+            dfs(node.left, targetSum, curr_sum)
+            dfs(node.right, targetSum, curr_sum)
+
+            self.prefix_sum[curr_sum] -= 1
+
+        self.count = 0
+        self.prefix_sum = {0: 1}
+        dfs(root, targetSum, 0)
+        return self.count
 ```

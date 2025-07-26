@@ -59,28 +59,17 @@ Return _the max sliding window_.
 ## Solution
 
 ```python
-from collections import deque
-
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        n = len(nums)
-        res = [0] * (n - k + 1)
-        dq = deque()
-        i, j = 0, 0
-        x = 0
-        
-        while j < len(nums):
-            while dq and dq[-1] < nums[j]:
-                dq.pop()
-            dq.append(nums[j])
-            
-            if j - i + 1 == k:
-                res[x] = dq[0]
-                x += 1
-                if dq[0] == nums[i]:
-                    dq.popleft()
-                i += 1
-            j += 1
-        
-        return res
+        q = deque()
+        result = []
+        for right in range(len(nums)):
+            while q and nums[right] > nums[q[-1]]:
+                q.pop()
+            q.append(right)
+            if q[0] <= right - k:
+                q.popleft()
+            if right >= k - 1:
+                result.append(nums[q[0]])
+        return result
 ```

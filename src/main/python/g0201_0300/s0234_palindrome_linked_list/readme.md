@@ -40,32 +40,16 @@ Given the `head` of a singly linked list, return `true` if it is a palindrome.
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        # Calculate the length of the linked list
-        length = 0
-        right = head
-        while right:
-            right = right.next
-            length += 1
-        
-        # Reverse the right half of the list
-        length //= 2
-        right = head
-        for _ in range(length):
-            right = right.next
-        
-        prev = None
-        while right:
-            next_node = right.next
-            right.next = prev
-            prev = right
-            right = next_node
-        
-        # Compare the left half and the right half
-        for _ in range(length):
-            if head and prev and head.val == prev.val:
-                head = head.next
-                prev = prev.next
-            else:
+        arr = []
+        while head:
+            arr.append(head.val)
+            head = head.next
+        l = 0
+        r = len(arr) -1 
+        while l <= r:
+            if arr[l] != arr[r]:
                 return False
+            l+=1
+            r-=1
         return True
 ```
