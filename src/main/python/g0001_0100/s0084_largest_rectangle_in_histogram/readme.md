@@ -72,6 +72,8 @@ This solution efficiently finds the largest rectangle area in the histogram usin
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         lefts = [0]

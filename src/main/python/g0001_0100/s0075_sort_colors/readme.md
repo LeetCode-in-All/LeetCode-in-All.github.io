@@ -98,6 +98,8 @@ This solution sorts the colors in-place using a one-pass algorithm with constant
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """

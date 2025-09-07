@@ -69,6 +69,8 @@ This solution utilizes backtracking to efficiently generate all possible palindr
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res = []

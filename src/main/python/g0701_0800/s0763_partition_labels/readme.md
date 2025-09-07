@@ -35,6 +35,8 @@ Return _a list of integers representing the size of these parts_.
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
         letters = list(s)

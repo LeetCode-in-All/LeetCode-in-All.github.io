@@ -99,6 +99,12 @@ Make sure to define the `Node` class before using it in the `copyRandomList` met
 ## Solution
 
 ```python
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+
 """
 # Definition for a Node.
 class Node:

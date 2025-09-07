@@ -107,6 +107,8 @@ This code defines a `Solution` class with a `searchRange` method to find the sta
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         ans = [-1, -1]

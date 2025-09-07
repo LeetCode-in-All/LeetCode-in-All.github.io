@@ -77,6 +77,8 @@ This solution effectively utilizes dynamic programming to determine whether the 
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         n = len(s)

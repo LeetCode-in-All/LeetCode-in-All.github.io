@@ -39,6 +39,8 @@ Given an `m x n` binary `matrix` filled with `0`'s and `1`'s, _find the largest 
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         if not matrix:

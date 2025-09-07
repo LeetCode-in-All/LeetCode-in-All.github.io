@@ -87,6 +87,8 @@ This solution has a time complexity of O(m * n), where m is the number of rows a
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """

@@ -64,6 +64,8 @@ This solution leverages the bitwise XOR operation to find the single number that
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         res = 0

@@ -79,6 +79,8 @@ This solution has a time complexity of O(m + n), where m is the number of rows a
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         endRow = len(matrix)

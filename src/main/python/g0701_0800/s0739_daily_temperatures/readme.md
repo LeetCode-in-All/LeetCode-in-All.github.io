@@ -33,6 +33,8 @@ Given an array of integers `temperatures` represents the daily temperatures, ret
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         sol = [0] * len(temperatures)

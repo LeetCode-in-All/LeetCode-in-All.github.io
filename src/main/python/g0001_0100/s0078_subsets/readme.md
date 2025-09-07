@@ -73,6 +73,7 @@ This solution generates all possible subsets using backtracking. It explores all
 
 ```python
 from itertools import combinations
+from typing import List
 
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:

@@ -106,6 +106,12 @@ This solution effectively uses Floyd's Tortoise and Hare algorithm to detect whe
 ## Solution
 
 ```python
+from typing import Optional
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):

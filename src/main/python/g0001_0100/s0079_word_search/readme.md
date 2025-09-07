@@ -103,6 +103,9 @@ This solution explores all possible paths in the grid to find the word using bac
 ## Solution
 
 ```python
+from typing import List
+from collections import Counter
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         n = len(board)
@@ -116,7 +119,8 @@ class Solution:
             c = Counter()
             for line in board:
                 c.update(line)
-            return Counter(word) <= c
+            w = Counter(word)
+            return all(c[ch] >= count for ch, count in w.items())
 
         if not is_sub(board, word):
             return False

@@ -29,6 +29,8 @@ Note that it is the <code>k<sup>th</sup></code> largest element in the sorted or
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         nums.sort()

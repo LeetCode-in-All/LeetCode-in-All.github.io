@@ -109,6 +109,8 @@ This code defines a `Solution` class with a `searchInsert` method to find the in
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
         low = 0

@@ -33,6 +33,13 @@ Given the `head` of a singly linked list, return `true` if it is a palindrome.
 ## Solution
 
 ```python
+from typing import Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):

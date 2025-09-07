@@ -29,6 +29,7 @@ Given an array of integers `nums` and an integer `k`, return _the total number o
 
 ```python
 from collections import defaultdict
+from typing import List
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
