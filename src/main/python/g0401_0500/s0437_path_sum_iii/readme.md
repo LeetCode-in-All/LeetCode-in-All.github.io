@@ -34,6 +34,14 @@ The path does not need to start or end at the root or a leaf, but it must go dow
 ## Solution
 
 ```python
+from typing import Optional
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):

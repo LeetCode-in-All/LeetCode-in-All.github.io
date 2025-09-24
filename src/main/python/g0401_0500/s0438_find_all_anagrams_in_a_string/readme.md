@@ -40,6 +40,7 @@ An **Anagram** is a word or phrase formed by rearranging the letters of a differ
 ## Solution
 
 ```python
+from typing import List
 from collections import defaultdict
 
 class Solution:

@@ -44,6 +44,8 @@ Return the number of different **expressions** that you can build, which evaluat
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
         total_sum = sum(nums)

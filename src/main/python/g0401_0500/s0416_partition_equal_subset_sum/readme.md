@@ -31,6 +31,8 @@ Given a **non-empty** array `nums` containing **only positive integers**, find i
 ## Solution
 
 ```python
+from typing import List
+
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         sums = sum(nums)
